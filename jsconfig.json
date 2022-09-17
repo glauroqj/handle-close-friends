@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "viewModel": ["___viewModel/*"],
+      "domain": ["__domain/*"],
+      "services": ["_services/*"],
+      "shared": ["shared/*"],
+      "public": ["public/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "infra"]
+}
