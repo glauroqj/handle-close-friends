@@ -1,0 +1,36 @@
+{
+  "name": "handle-close-friends",
+  "version": "0.1.0",
+  "private": true,
+  "author": "Glauro Q Juliani",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "----- DOCKER DEVELOPER -----": "",
+    "dev-start": "docker-compose up -d --build && docker ps && yarn dev-logs",
+    "dev-stop": "docker-compose stop && docker ps",
+    "dev-restart": "yarn dev-stop && yarn dev-start",
+    "dev-logs": "docker logs -f --tail 30 handle_close_friends_local",
+    "###### | DOCKER COMMON SCRIPTS | ##########################################": "",
+    "delete-all": "yarn delete-containers && yarn delete-images && yarn delete-volumes",
+    "delete-containers": "docker container stop $(docker container ls -qa) && docker container rm $(docker container ls -qa)",
+    "delete-images": "docker image rm $(docker image ls -q)",
+    "delete-volumes": "docker volume rm $(docker volume ls -q)"
+  },
+  "dependencies": {
+    "next": "12.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-config-next": "12.3.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1"
+  }
+}
