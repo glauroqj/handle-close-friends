@@ -1,0 +1,26 @@
+{
+  "files.associations": {
+    "*.js": "javascriptreact"
+  },
+  "editor.tabSize": 2,
+  "eslint.alwaysShowStatus": true,
+  "eslint.workingDirectories": [
+    {
+      "directory": "packages/sympla-ui",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "packages/white-lion",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "packages/datadog-logger",
+      "changeProcessCWD": true
+    },
+    {
+      "directory": "packages/black-lion",
+      "changeProcessCWD": true
+    }
+  ],
+  "editor.formatOnSave": true
+}
