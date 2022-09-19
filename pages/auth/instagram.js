@@ -27,7 +27,10 @@ import React, { useState, useEffect } from 'react'
 /** view model */
 import userViewModel from '___viewModel/authentication'
 
-const Login = () => {
+const LoginInstagram = ({
+  code,
+  error
+}) => {
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 
@@ -52,9 +55,14 @@ const Login = () => {
   // console.log('< ROUTER LOGIN > ', router)
 
   useEffect(() => {
-    /** GA */
-    if (window?.dataLayer && window?.gtag) {
-      // gtag('send', {'pageview': window.location.pathname})
+    if (code && !error?.code) {
+      setState({
+        ...state,
+        loading: true
+      })
+
+    } else {
+      /** error case */
     }
   }, [])
 
@@ -176,14 +184,6 @@ const Login = () => {
                 console.log(response)
               }
             }
-
-            //           https://api.instagram.com/oauth/authorize
-            // ?client_id=3217961178471425
-            // &redirect_uri=https://handle-close-friends.com.br:5000/auth/instagram
-            // &scope=user_profile,user_media
-            // &response_type=code
-            // &state=1
-
           );
         }
       });
@@ -322,16 +322,20 @@ const Login = () => {
   )
 }
 
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context)
-//   console.log('< LOGIN GET SERVER > ', session)
+export async function getServerSideProps(context) {
+  console.log('< INSTAGRAM CALLBACK > ', context)
+  const { query } = context
 
-//   if (session) {
-//     return { redirect: { destination: '/painel/copas', permanent: false } }
-//   }
-//   return {
-//     props: { session }
-//   }
-// }
+  return {
+    props: {
+      code: query?.code || false,
+      error: {
+        code: query?.error || false,
+        reason: query?.error_reason,
+        description: query?.error_description
+      }
+    }
+  }
+}
 
-export default Login
+export default LoginInstagram
