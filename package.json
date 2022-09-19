@@ -4,7 +4,8 @@
   "private": true,
   "author": "Glauro Q Juliani",
   "scripts": {
-    "dev": "next dev",
+    "dev": "node server.js",
+    "dev-old": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

@@ -1,0 +1,18 @@
+/* create key */
+openssl req -nodes -new -x509 -keyout handle-close-friends.com.br.key -out handle-close-friends.com.br.cert -days 19365 --config handle-close-friends.com.br.conf
+
+/* create cert */
+openssl req -new -x509 -key handle-close-friends.com.br.key -sha256 -out handle-close-friends.com.br.pem -days 19365 --config handle-close-friends.com.br.conf
+
+/* decrypt cert file to verify infos */
+openssl x509 -in handle-close-friends.com.br.cert -text -noout
+
+
+
+/* on chrome */
+- open chrome://settings/
+- scroll to the tier "Privacy and security" - Security - Advanced > Manage certificates
+- Now you see 4 tabs, go to Authorities tabs
+- Click in import button
+- Now, find the file handle-close-friends.com.br.pem in "packages/white-lion/src/Apps/Server/config/ssl-certificate/handle-close-friends.com.br.pem"
+- Click in open and check all checkboxes and OK
