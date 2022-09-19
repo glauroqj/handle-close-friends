@@ -38,7 +38,7 @@ const LoginInstagram = ({
     email: '',
     password: '',
     captcha: '',
-    loading: false
+    loading: true
   })
 
   const [errors, setErrors] = useState({
@@ -56,15 +56,37 @@ const LoginInstagram = ({
 
   useEffect(() => {
     if (code && !error?.code) {
-      setState({
-        ...state,
-        loading: true
-      })
-
+      getSession()
     } else {
       /** error case */
     }
-  }, [])
+  }, [code])
+
+  const getSession = async () => {
+    const responseRaw = await fetch('/api/auth/instagram-token', {
+      method: 'post',
+      body: JSON.stringify({
+        token: code
+      }),
+      headers: {
+        'x-whoiam': 'arch'
+      }
+    });
+
+    const response = await responseRaw.json()
+
+    if (responseRaw.status === 200) {
+      setState({
+        ...state,
+        loading: false
+      })
+
+
+
+    } else {
+      /** error */
+    }
+  }
 
   const submit = async () => {
     const { redirect } = router?.query || false
@@ -166,36 +188,11 @@ const LoginInstagram = ({
     if (errorPayload.errorsCount.length === 0) submit()
   }
 
-  const fbLogin = () => {
-    if (window?.FB) {
-      window.FB.getLoginStatus(function (response) {
-        // statusChangeCallback(response);
-        console.log('< RESPONSE > ', response)
-        if (response?.status === "unknown") {
-          window.FB.login()
-        }
-        if (response?.status === "connected") {
-          window.FB.api(
-            "/me/friendlists",
-            function (response) {
-              console.log('< CALL CLOSE FRIEND > ', response)
-              if (response && !response.error) {
-                /* handle the result */
-                console.log(response)
-              }
-            }
-          );
-        }
-      });
-    }
-  }
-
   return (
     <div>
-      Login with:
-
-      <button onClick={() => fbLogin()}>Facebook</button>
-
+      {(state?.loading && !error?.code) && (
+        <div>Loading Instagram session...</div>
+      )}
     </div >
     // <Layout>
     //   <Head>
@@ -331,8 +328,8 @@ export async function getServerSideProps(context) {
       code: query?.code || false,
       error: {
         code: query?.error || false,
-        reason: query?.error_reason,
-        description: query?.error_description
+        reason: query?.error_reason || '',
+        description: query?.error_description || ''
       }
     }
   }
