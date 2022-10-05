@@ -21,6 +21,9 @@
     "delete-volumes": "docker volume rm $(docker volume ls -q)"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
+    "@material-ui/styles": "^4.11.5",
     "@mui/icons-material": "^5.10.6",
     "@mui/material": "^5.10.8",
     "@mui/styled-engine-sc": "^5.10.6",
@@ -30,7 +33,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^5.3.6",
-    "yarn": "^1.22.19"
+    "styled-reset": "^4.3.4"
   },
   "devDependencies": {
     "eslint": "^8.23.1",

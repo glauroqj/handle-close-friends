@@ -3,7 +3,7 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 /** ssr material themes */
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
-import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@mui/material/styles'
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
 
 class MyDocument extends Document {
   render() {
