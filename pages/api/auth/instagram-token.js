@@ -29,18 +29,10 @@ export default async function handler(req, res) {
   try {
     const payload = new FormData()
     payload.append('client_id', '3217961178471425')
-    payload.append('client_secret', 'd14a930dc50462ab077a9b6e1024a446')
+    payload.append('client_secret', '')
     payload.append('code', token)
     payload.append('grant_type', 'authorization_code')
     payload.append('redirect_uri', 'https://handle-close-friends.com.br:5000/auth/instagram')
-
-    // {
-    //   'client_id': '3217961178471425',
-    //   'client_secret': 'd14a930dc50462ab077a9b6e1024a446',
-    //   'code': String(token),
-    //   'grant_type': 'authorization_code',
-    //   'redirect_uri': 'https://handle-close-friends.com.br:5000/'
-    // },
 
     const responseRaw = await fetch('https://api.instagram.com/oauth/access_token', {
       method: 'post',
