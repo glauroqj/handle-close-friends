@@ -123,25 +123,26 @@ const Navbar = () => {
 
             {/** DESKTOP - TABLET */}
             <El.NavbarUserDesktop>
-              <Link href='/login' passHref>
+              <Link href='/auth' passHref>
                 <Button
                   variant="text"
                   color="secondary"
+                  variant="contained"
                 // onClick={ () => callLoginService() }
                 >
                   Login
                 </Button>
               </Link>
-              <Link href='/criar-conta' passHref>
+              {/* <Link href='/criar-conta' passHref>
                 <Button
                   variant="text"
                   color="secondary"
-                  variant="outlined"
+                  variant="contained"
                 // onClick={ () => callLoginService() }
                 >
                   Criar Conta
                 </Button>
-              </Link>
+              </Link> */}
             </El.NavbarUserDesktop>
 
             {/** MOBILE */}

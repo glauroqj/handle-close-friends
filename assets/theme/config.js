@@ -9,9 +9,9 @@ const Breakpoints = {
   lg: '1500px'
 }
 const Colors = {
-  primary: '#FF7400',
-  primary_light: '#D68427',
-  primary_dark: '#B06D20',
+  primary: '#56a0d3',
+  primary_light: '#82CDFF',
+  primary_dark: '#2A6287',
   secondary: '#2F3640',
   secondary_light: '#66768C',
   secondary_dark: '#252B33',
