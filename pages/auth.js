@@ -233,7 +233,7 @@ const Login = () => {
             >
 
               <Typography variant="h2" color="textSecondary" align="center">Login</Typography>
-              <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma Papacopa</Typography>
+              <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma</Typography>
 
               <form
                 sx={{
