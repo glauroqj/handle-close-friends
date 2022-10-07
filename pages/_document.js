@@ -2,8 +2,8 @@
 import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 /** ssr material themes */
-// import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
-// import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
+import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
+import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
 
 class MyDocument extends Document {
   render() {
@@ -15,18 +15,6 @@ class MyDocument extends Document {
           <link rel="icon" href="/favicon.ico" />
           <link rel="manifest" href="/manifest.json" />
 
-          <link rel="apple-touch-icon" sizes="48x48" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="72x72" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="96x96" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="120x120" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="128x128" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="144x144" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="152x152" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="168x168" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="180x180" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="192x192" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="384x384" href='/images/papacopa_logo_principal.png' />
-          <link rel="apple-touch-icon" sizes="512x512" href='/images/papacopa_logo_principal.png' />
           <link
             rel="preload"
             as='style'
@@ -96,45 +84,45 @@ class MyDocument extends Document {
   }
 }
 
-// MyDocument.getInitialProps = async (ctx) => {
+MyDocument.getInitialProps = async (ctx) => {
 
-//   // Render app and page and get the context of the page with collected side effects.
-//   // const sheet = new ServerStyleSheet()
-//   const styledComponentSheet = new StyledComponentSheets()
-//   const materialUiSheets = new MaterialUiServerStyleSheets()
-//   const originalRenderPage = ctx.renderPage
+  // Render app and page and get the context of the page with collected side effects.
+  // const sheet = new ServerStyleSheet()
+  const styledComponentSheet = new StyledComponentSheets()
+  const materialUiSheets = new MaterialUiServerStyleSheets()
+  const originalRenderPage = ctx.renderPage
 
-//   try {
-//     ctx.renderPage = () =>
-//       originalRenderPage({
-//         enhanceApp: (App) => (props) =>
-//           styledComponentSheet.collectStyles(
-//             materialUiSheets.collect(<App {...props} />),
-//           )
-//       })
+  try {
+    ctx.renderPage = () =>
+      originalRenderPage({
+        enhanceApp: (App) => (props) =>
+          styledComponentSheet.collectStyles(
+            materialUiSheets.collect(<App {...props} />),
+          )
+      })
 
-//     const initialProps = await Document.getInitialProps(ctx)
+    const initialProps = await Document.getInitialProps(ctx)
 
-//     return {
-//       ...initialProps,
-//       styles: [
-//         <React.Fragment key="styles">
-//           {initialProps.styles}
-//           {styledComponentSheet.getStyleElement()}
-//           {materialUiSheets.getStyleElement()}
-//         </React.Fragment>
-//       ]
-//       // styles: (
-//       //   <>
-//       //     {initialProps.styles}
-//       //     {sheet.getStyleElement()}
-//       //   </>
-//       // ),
-//     }
-//   } finally {
-//     styledComponentSheet.seal()
-//   }
-// }
+    return {
+      ...initialProps,
+      styles: [
+        <React.Fragment key="styles">
+          {initialProps.styles}
+          {styledComponentSheet.getStyleElement()}
+          {materialUiSheets.getStyleElement()}
+        </React.Fragment>
+      ]
+      // styles: (
+      //   <>
+      //     {initialProps.styles}
+      //     {sheet.getStyleElement()}
+      //   </>
+      // ),
+    }
+  } finally {
+    styledComponentSheet.seal()
+  }
+}
 
 export default MyDocument
 

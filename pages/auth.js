@@ -1,12 +1,24 @@
 /** next */
 import Head from 'next/head'
-import React, { useState, useEffect } from 'react'
-// import Link from 'next/link'
+import Link from 'next/link'
+import { useState, useEffect } from 'react'
+/** layout */
+import Public from 'shared/layouts/Public'
+/** seo */
+import PublicHeader from 'shared/seo/public_header'
 // import { getSession, signIn } from 'next-auth/client'
 // import { useRouter } from 'next/router'
 // /** container */
 // import Layout from 'containers/Layout'
-// /** ui */
+/** ui */
+/** components */
+import Container from '@mui/material/Container'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import Box from '@mui/material/Box'
+import Paper from '@mui/material/Paper'
+import Button from '@mui/material/Button'
 // import {
 //   Container,
 //   Grid,
@@ -158,159 +170,154 @@ const Login = () => {
     if (errorPayload.errorsCount.length === 0) submit()
   }
 
-  const fbLogin = () => {
-    if (window?.FB) {
-      window.FB.getLoginStatus(function (response) {
-        // statusChangeCallback(response);
-        console.log('< RESPONSE > ', response)
-        if (response.status === "unknown") {
-          window.FB.login()
-        }
-        if (response.status === "connected") {
-          console.log('< CALL CLOSE FRIEND >')
-          window.FB.api(
-            "/me/friendlists",
-            function (response) {
-              if (response && !response.error) {
-                /* handle the result */
-                console.log(response)
-              }
-            }
-          );
-        }
-      });
-    }
+  const login = () => {
+    window.location.href = (`https://api.instagram.com/oauth/authorize?client_id=3217961178471425&redirect_uri=https://handle-close-friends.com.br:5000/auth/instagram&scope=user_profile,user_media&response_type=code&state=1`)
+    // if (window?.FB) {
+    //   window.FB.getLoginStatus(function (response) {
+    //     // statusChangeCallback(response);
+    //     console.log('< RESPONSE > ', response)
+    //     if (response?.status === "unknown") {
+    //       window.FB.login()
+    //     }
+    //     if (response?.status === "connected") {
+    //       window.FB.api(
+    //         "/me/friendlists",
+    //         function (response) {
+    //           console.log('< CALL CLOSE FRIEND > ', response)
+    //           if (response && !response.error) {
+    //             /* handle the result */
+    //             console.log(response)
+    //           }
+    //         }
+
+    //         //           https://api.instagram.com/oauth/authorize
+    //         // ?client_id=3217961178471425
+    //         // &redirect_uri=https://handle-close-friends.com.br:5000/auth/instagram
+    //         // &scope=user_profile,user_media
+    //         // &response_type=code
+    //         // &state=1
+
+    //       );
+    //     }
+    //   });
+    // }
   }
 
   return (
-    <div>
-      Login with:
+    <Public>
+      <Head>
+        <PublicHeader
+          title="Handle App - Login"
+        />
+      </Head>
+      <Container>
 
-      <button onClick={() => fbLogin()}>Facebook</button>
+        <Grid
+          container
+          spacing={3}
+          justifyContent="center"
+        // direction="column"
+        // alignItems="center"
+        >
 
-    </div >
-    // <Layout>
-    //   <Head>
-    //     <title>Papacopa - Login</title>
-    //     <meta name="description" content="Papacopa, fazer login na plataforma." />
-    //     <meta name="keywords" content="Papacopa, pontos corridos, futebol, cartola fc, papa copa, copa, copas" />
+          <Grid item xs={12} md={8} lg={4}>
+            <Paper
+              elevation={2}
+              sx={{
+                margin: '5rem 0',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '15px'
+              }}
+            >
 
-    //     <meta property="og:url" content={`https://www.papacopa.com.br/login`} />
-    //     <meta property="og:type" content="website" />
-    //     <meta property="og:title" content="Papacopa - Emoção do início ao fim!" />
-    //     <meta property="og:description" content="A competição mais emocionante com pontos corridos e mata-mata" />
-    //     <meta property="og:image" content={`https://www.papacopa.com.br/images/papacopa_logo_principal.png`} />
-    //     <meta property="og:image:width" content="50" />
-    //     <meta property="og:image:height" content="50" />
-    //   </Head>
-    //   <Container>
+              <Typography variant="h2" color="textSecondary" align="center">Login</Typography>
+              <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma</Typography>
 
-    //     <Grid
-    //       container
-    //       spacing={3}
-    //       justifyContent="center"
-    //       // direction="column"
-    //       // alignItems="center"
-    //     >
+              <form
+                sx={{
+                  width: '100%', // Fix IE 11 issue.
+                  marginTop: '3rem'
+                }}
+                autoComplete="true"
+                onKeyDown={(e) => {
+                  e?.keyCode === 13 && (
+                    e.preventDefault(),
+                    updateErrors()
+                  )
+                }}
+              >
 
-    //       <Grid item xs={12} md={8} lg={4}>
-    //         <Paper
-    //           elevation={2}
-    //           sx={{
-    //             margin: '5rem 0',
-    //             display: 'flex',
-    //             flexDirection: 'column',
-    //             alignItems: 'center',
-    //             padding: '15px'
-    //           }}
-    //         >
+                <TextField
+                  label="E-mail"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  style={{ margin: '8px 0' }}
+                  onChange={(e) => setState({ ...state, email: e.target.value })}
+                  inputProps={{ maxLength: 100 }}
+                  helperText={errors.email.text}
+                  error={errors.email.text ? true : false}
+                  value={state.email}
+                  autoComplete="email"
+                />
 
-    //           <Typography variant="h2" color="textSecondary" align="center">Login</Typography>
-    //           <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma Papacopa</Typography>
+                <TextField
+                  label="Senha"
+                  type="password"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  style={{ margin: '8px 0' }}
+                  onChange={(e) => setState({ ...state, password: e.target.value })}
+                  inputProps={{ maxLength: 100 }}
+                  helperText={errors.password.text}
+                  error={errors.password.text ? true : false}
+                  value={state.password}
+                />
 
-    //           <form
-    //             sx={{
-    //               width: '100%', // Fix IE 11 issue.
-    //               marginTop: '3rem'
-    //             }}
-    //             autoComplete="true"
-    //             onKeyDown={(e) => {
-    //               e?.keyCode === 13 && (
-    //                 e.preventDefault(),
-    //                 updateErrors()
-    //               )
-    //             }}
-    //           >
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  onClick={() => updateErrors()}
+                  disabled={state.loading}
+                  sx={{ margin: '8px 0px 0px' }}
+                >
+                  {!state.loading && 'Entrar'}
+                  {/* {state.loading && (
+                    <>
+                      Entrando...
+                      <Loading />
+                    </>
+                  )} */}
+                </Button>
 
-    //             <TextField
-    //               label="E-mail"
-    //               type="email"
-    //               variant="outlined"
-    //               fullWidth
-    //               required
-    //               style={{margin: '8px 0'}}
-    //               onChange={(e) => setState({...state, email: e.target.value})}
-    //               inputProps={{ maxLength: 100 }}
-    //               helperText={ errors.email.text }
-    //               error={ errors.email.text ? true : false }
-    //               value={state.email}
-    //               autoComplete="email"
-    //             />
+                <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
+                  <Link href="/recuperar-senha">
+                    <Button variant="outlined" color="secondary" size="small">
+                      Esqueceu a senha?
+                    </Button>
+                  </Link>
 
-    //             <TextField
-    //               label="Senha"
-    //               type="password"
-    //               variant="outlined"
-    //               fullWidth
-    //               required
-    //               style={{margin: '8px 0'}}
-    //               onChange={(e) => setState({...state, password: e.target.value})}
-    //               inputProps={{ maxLength: 100 }}
-    //               helperText={ errors.password.text }
-    //               error={ errors.password.text ? true : false }
-    //               value={state.password}
-    //             />
+                  <Link href="/criar-conta">
+                    <Button variant="outlined" color="secondary" size="small">
+                      Quero criar conta
+                    </Button>
+                  </Link>
+                </Box>
 
-    //             <Button
-    //               fullWidth
-    //               variant="contained"
-    //               color="secondary"
-    //               size="large"
-    //               onClick={() => updateErrors()}
-    //               disabled={state.loading}
-    //               sx={{ margin: '8px 0px 0px' }}
-    //             >
-    //               {!state.loading && 'Entrar'}
-    //               {state.loading && (
-    //                 <>
-    //                     Entrando...
-    //                   <Loading />
-    //                 </>
-    //               )}
-    //             </Button>
+              </form>
+            </Paper>
+          </Grid>
 
-    //             <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
-    //               <Link href="/recuperar-senha">
-    //                 <Button variant="outlined" color="secondary" size="small">
-    //                   Esqueceu a senha?
-    //                 </Button>
-    //               </Link>
+        </Grid>
 
-    //               <Link href="/criar-conta">
-    //                 <Button variant="outlined" color="secondary" size="small">
-    //                   Quero criar conta
-    //                 </Button>
-    //               </Link>
-    //             </Box>
-
-    //           </form>
-    //         </Paper>
-    //       </Grid>
-
-    //     </Grid>
-
-    //   </Container>
-    // </Layout>
+      </Container>
+    </Public>
   )
 }
 

@@ -6,7 +6,8 @@
       "domain": ["__domain/*"],
       "services": ["_services/*"],
       "shared": ["shared/*"],
-      "public": ["public/*"]
+      "public": ["public/*"],
+      "assets": ["assets/*"],
     }
   },
   "exclude": ["node_modules", "dist", "infra"]
