@@ -163,16 +163,16 @@ const Navbar = () => {
                 open={stateNavbar.isDropdownOpen}
                 onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
               >
-                <Link href='/login' passHref>
+                <Link href='/auth' passHref>
                   <MenuItem>
                     <a>Login</a>
                   </MenuItem>
                 </Link>
-                <Link href='/criar-conta' passHref>
+                {/* <Link href='/criar-conta' passHref>
                   <MenuItem>
                     <a>Criar Conta</a>
                   </MenuItem>
-                </Link>
+                </Link> */}
               </Menu>
             </El.NavbarUserMobile>
           </El.NavbarUserContainer>
