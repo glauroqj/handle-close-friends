@@ -33,7 +33,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 import authViewModel from '___viewModel/authentication'
 
 const Login = () => {
-  const { state, setState, errors, setErrors } = authViewModel()
+  const { state, setState, errors, setErrors, handleLogin } = authViewModel()
   console.log('< AUTH STATE > ', state, errors)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
@@ -231,7 +231,7 @@ const Login = () => {
                   variant="contained"
                   color="secondary"
                   size="medium"
-                  onClick={googleLogin}
+                  onClick={() => handleLogin({ type: 'google' })}
                   disabled={state.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
