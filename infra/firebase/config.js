@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
-import firebase from "firebase/app";
+import { initializeApp } from "firebase/app";
 import "firebase/auth";
-import "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,9 +18,18 @@ const clientCredentials = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-if (!firebase?.apps?.length) {
-  const app = firebase.initializeApp(clientCredentials);
-  getAnalytics(app);
+function initFirebase() {
+  if (typeof document !== 'undefined' && !app) {
+    initializeApp(clientCredentials);
+    getAnalytics(app);
+  }
 }
 
-export default firebase;
+const app = initializeApp(clientCredentials);
+const db = getFirestore(app);
+
+export { initFirebase, db, app };
+
+/**
+  DOC: https://github.com/bjcarlson42/nextjs-with-firebase 
+*/

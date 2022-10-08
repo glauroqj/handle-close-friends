@@ -14,10 +14,10 @@ import { ThemeProvider as MaterialProvider } from '@mui/material/styles'
 // import sentryInit from 'utils/sentry'
 // sentryInit()
 /** firebase */
-import firebaseStart from 'infra/firebase/config'
+import { initFirebase } from "infra/firebase/config";
 
 const App = ({ Component, pageProps }) => {
-  firebaseStart()
+  initFirebase()
 
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
