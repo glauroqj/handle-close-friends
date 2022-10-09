@@ -12,7 +12,7 @@ export default () => {
   }
 
   const watchUserAuthentication = async (callback) => {
-    console.log('< watchUserAuthentication > ', callback)
+    // console.log('< watchUserAuthentication > ', callback)
     const auth = await getUserAuthenticationInstance()
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -33,7 +33,7 @@ export default () => {
   const google = () => new Promise(async resolve => {
     const provider = new GoogleAuthProvider()
     const auth = await getUserAuthenticationInstance()
-    console.log(' LOGIN DOMAIN ', auth)
+    // console.log(' LOGIN DOMAIN ', auth)
 
     if (!!auth?.currentUser?.uid) {
       resolve({ ...auth?.currentUser })
@@ -46,7 +46,7 @@ export default () => {
           // The signed-in user info.
           const user = result.user;
 
-          console.log('< GOOGLE LOGIN : OK > ', result)
+          // console.log('< GOOGLE LOGIN : OK > ', result)
           resolve({ ...user })
         }).catch((error) => {
           // Handle Errors here.
@@ -57,7 +57,7 @@ export default () => {
           // The AuthCredential type that was used.
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
-          console.log('< GOOGLE LOGIN : ERROR > ', error, credential)
+          // console.log('< GOOGLE LOGIN : ERROR > ', error, credential)
           resolve({
             error: {
               errorCode,

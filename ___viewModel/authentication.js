@@ -33,6 +33,7 @@ export default () => {
 
   const watchAuth = (payload) => {
     console.log('< WATCH AUTH > ', payload)
+    setUser({ ...payload })
   }
 
   /** main method */

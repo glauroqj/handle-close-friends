@@ -1,7 +1,6 @@
 /** next */
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 /** layout */
 import Public from 'shared/layouts/Public'
 /** seo */

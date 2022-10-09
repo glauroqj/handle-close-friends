@@ -1,6 +1,6 @@
 /** next */
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import PropTypes from 'prop-types'
 /** components */
 import Grid from '@mui/material/Grid'
@@ -15,44 +15,47 @@ import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
     showAlert: true
   })
 
-  const account = false
+  let account = user?.uid ? true : false
+
+  console.log('< NAVBAR > ', user)
 
   const chooseTemplate = () => {
 
     // if (loading) return <Loading color='secondary' />
 
-    // if (!account) {
-    //   return (
-    // <>
-    // <Link href='/login'>
-    //   <Button
-    //     variant="text" 
-    //     color="secondary"
-    //     // onClick={ () => callLoginService() }
-    //   >
-    //     Login
-    //   </Button>
-    // </Link>
-    // <Link href='/criar-conta'>
-    // <Button
-    //   variant="text" 
-    //   color="secondary"
-    //   variant="outlined"
-    //   // onClick={ () => callLoginService() }
-    // >
-    //   Criar Conta
-    // </Button>
-    // </Link>
-    // </>
-    //   )
-    // }
+    if (!account) {
+      return (
+        <>
+          <Link href='/auth' passHref>
+            <Button
+              variant="text"
+              color="secondary"
+              variant="contained"
+            // onClick={ () => callLoginService() }
+            >
+              Login
+            </Button>
+          </Link>
+          {/* <Link href='/criar-conta'>
+            <Button
+              variant="text"
+              color="secondary"
+              variant="outlined"
+            // onClick={ () => callLoginService() }
+            >
+              Criar Conta
+            </Button>
+          </Link> */}
+        </>
+      )
+    }
 
     if (account) {
       return (
@@ -133,16 +136,6 @@ const Navbar = () => {
                   Login
                 </Button>
               </Link>
-              {/* <Link href='/criar-conta' passHref>
-                <Button
-                  variant="text"
-                  color="secondary"
-                  variant="contained"
-                // onClick={ () => callLoginService() }
-                >
-                  Criar Conta
-                </Button>
-              </Link> */}
             </El.NavbarUserDesktop>
 
             {/** MOBILE */}
@@ -168,11 +161,6 @@ const Navbar = () => {
                     <a>Login</a>
                   </MenuItem>
                 </Link>
-                {/* <Link href='/criar-conta' passHref>
-                  <MenuItem>
-                    <a>Criar Conta</a>
-                  </MenuItem>
-                </Link> */}
               </Menu>
             </El.NavbarUserMobile>
           </El.NavbarUserContainer>
