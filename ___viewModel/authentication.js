@@ -1,11 +1,12 @@
 /** VIEW MODEL - STATE APPLICATION */
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import login from '__domain/authentication/login'
 
 export default () => {
   // const { isUserAuthenticated } = login()
   // console.log('< AUTH MODEL > ', isUserAuthenticated)
+  const [user, setUser] = useState({})
 
   const [state, setState] = useState({
     email: '',
@@ -22,15 +23,26 @@ export default () => {
     },
     password: {
       text: ''
-    },
+    }
   })
+
+  useEffect(() => {
+    const { watchUserAuthentication } = login()
+    watchUserAuthentication(watchAuth)
+  }, [])
+
+  const watchAuth = (payload) => {
+    console.log('< WATCH AUTH > ', payload)
+  }
 
   /** main method */
   const handleLogin = ({ type }) => {
     const opts = {
       google: async () => {
         const { google } = login()
-        console.log('< LOGIN WITH GOOGLE > ', google())
+        const payload = await google()
+        console.log('< LOGIN WITH GOOGLE > ', payload)
+        setUser(payload)
       }
     }
 
@@ -38,6 +50,7 @@ export default () => {
   }
 
   return {
+    user,
     state,
     setState,
     errors,
