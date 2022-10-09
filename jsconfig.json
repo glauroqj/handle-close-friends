@@ -2,12 +2,13 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "viewModel": ["___viewModel/*"],
-      "domain": ["__domain/*"],
-      "services": ["_services/*"],
+      "___viewModel": ["___viewModel/*"],
+      "__domain": ["__domain/*"],
+      "_services": ["_services/*"],
       "shared": ["shared/*"],
       "public": ["public/*"],
       "assets": ["assets/*"],
+      "infra": ["infra/*"]
     }
   },
   "exclude": ["node_modules", "dist", "infra"]

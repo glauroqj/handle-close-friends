@@ -1,6 +1,6 @@
 /** next */
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 // import PropTypes from 'prop-types'
 /** components */
 import Grid from '@mui/material/Grid'
@@ -10,49 +10,70 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import Avatar from '@mui/material/Avatar'
 /** icons */
 import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
     showAlert: true
   })
 
-  const account = false
+  let account = user?.uid ? true : false
+
+  console.log('< NAVBAR > ', user)
 
   const chooseTemplate = () => {
 
     // if (loading) return <Loading color='secondary' />
 
-    // if (!account) {
-    //   return (
-    // <>
-    // <Link href='/login'>
-    //   <Button
-    //     variant="text" 
-    //     color="secondary"
-    //     // onClick={ () => callLoginService() }
-    //   >
-    //     Login
-    //   </Button>
-    // </Link>
-    // <Link href='/criar-conta'>
-    // <Button
-    //   variant="text" 
-    //   color="secondary"
-    //   variant="outlined"
-    //   // onClick={ () => callLoginService() }
-    // >
-    //   Criar Conta
-    // </Button>
-    // </Link>
-    // </>
-    //   )
-    // }
+    if (!account) {
+      return (
+        <>
+          {/** DESKTOP - TABLET */}
+          <El.NavbarUserDesktop>
+            <Link href='/auth' passHref>
+              <Button
+                color="secondary"
+                variant="contained"
+              >
+                Login
+              </Button>
+            </Link>
+          </El.NavbarUserDesktop>
+
+          {/** MOBILE */}
+          <El.NavbarUserMobile>
+            <Button
+              aria-controls="logged-menu"
+              aria-haspopup="true"
+              variant="text"
+              color="secondary"
+              onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
+            >
+              <MenuIcon />
+            </Button>
+            <Menu
+              id="logged-menu"
+              anchorEl={stateNavbar.anchorEl}
+              keepMounted
+              open={stateNavbar.isDropdownOpen}
+              onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
+            >
+              <Link href='/auth' passHref>
+                <MenuItem>
+                  <a>Login</a>
+                </MenuItem>
+              </Link>
+            </Menu>
+          </El.NavbarUserMobile>
+        </>
+      )
+    }
 
     if (account) {
       return (
@@ -64,7 +85,7 @@ const Navbar = () => {
             color="secondary"
             onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
           >
-            <MoreVertIcon />
+            <Avatar src={user?.photoURL} />
           </Button>
           <Menu
             id="logged-menu"
@@ -73,14 +94,14 @@ const Navbar = () => {
             open={stateNavbar.isDropdownOpen}
             onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
           >
-            {/* <Link to='/dashboard'>
+            <Link href='/dashboard'>
               <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                 <El.NavbarLinkItem>
                   Dashboard
                 </El.NavbarLinkItem>
               </MenuItem>
             </Link>
-            <Link to='/myaccount'>
+            {/* <Link to='/myaccount'>
               <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                 <El.NavbarLinkItem>
                   Minha Conta
@@ -121,60 +142,8 @@ const Navbar = () => {
 
           <El.NavbarUserContainer>
 
-            {/** DESKTOP - TABLET */}
-            <El.NavbarUserDesktop>
-              <Link href='/auth' passHref>
-                <Button
-                  variant="text"
-                  color="secondary"
-                  variant="contained"
-                // onClick={ () => callLoginService() }
-                >
-                  Login
-                </Button>
-              </Link>
-              {/* <Link href='/criar-conta' passHref>
-                <Button
-                  variant="text"
-                  color="secondary"
-                  variant="contained"
-                // onClick={ () => callLoginService() }
-                >
-                  Criar Conta
-                </Button>
-              </Link> */}
-            </El.NavbarUserDesktop>
+            {chooseTemplate()}
 
-            {/** MOBILE */}
-            <El.NavbarUserMobile>
-              <Button
-                aria-controls="logged-menu"
-                aria-haspopup="true"
-                variant="text"
-                color="secondary"
-                onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
-              >
-                <MenuIcon />
-              </Button>
-              <Menu
-                id="logged-menu"
-                anchorEl={stateNavbar.anchorEl}
-                keepMounted
-                open={stateNavbar.isDropdownOpen}
-                onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
-              >
-                <Link href='/auth' passHref>
-                  <MenuItem>
-                    <a>Login</a>
-                  </MenuItem>
-                </Link>
-                {/* <Link href='/criar-conta' passHref>
-                  <MenuItem>
-                    <a>Criar Conta</a>
-                  </MenuItem>
-                </Link> */}
-              </Menu>
-            </El.NavbarUserMobile>
           </El.NavbarUserContainer>
 
         </Grid>

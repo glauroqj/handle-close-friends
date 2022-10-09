@@ -1,7 +1,6 @@
 /** next */
 import Head from 'next/head'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
 /** layout */
 import Public from 'shared/layouts/Public'
 /** seo */
@@ -19,15 +18,8 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
-// import {
-//   Container,
-//   Grid,
-//   Button,
-//   Typography,
-//   Paper,
-//   TextField,
-//   Box
-// } from '@material-ui/core'
+/** icons */
+import GoogleIcon from '@mui/icons-material/Google'
 // /** components */
 // import Loading from 'components/Loading/Loading'
 // /** notification */
@@ -37,38 +29,33 @@ import Button from '@mui/material/Button'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import userViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/authentication'
 
 const Login = () => {
+  const { user, state, setState, errors, setErrors, handleLogin, handlLogout } = authViewModel()
+  console.log('< AUTH STATE > ', user, state, errors)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-    captcha: '',
-    loading: false
-  })
+  // const [state, setState] = useState({
+  //   email: '',
+  //   password: '',
+  //   captcha: '',
+  //   loading: false
+  // })
 
-  const [errors, setErrors] = useState({
-    errorsCount: [],
-    fields: ['email', 'password'],
-    email: {
-      text: ''
-    },
-    password: {
-      text: ''
-    },
-  })
+  // const [errors, setErrors] = useState({
+  //   errorsCount: [],
+  //   fields: ['email', 'password'],
+  //   email: {
+  //     text: ''
+  //   },
+  //   password: {
+  //     text: ''
+  //   },
+  // })
 
   // console.log('< ROUTER LOGIN > ', router)
-
-  useEffect(() => {
-    /** GA */
-    if (window?.dataLayer && window?.gtag) {
-      // gtag('send', {'pageview': window.location.pathname})
-    }
-  }, [])
 
   const submit = async () => {
     const { redirect } = router?.query || false
@@ -203,6 +190,8 @@ const Login = () => {
     // }
   }
 
+  const googleLogin = () => { }
+
   return (
     <Public>
       <Head>
@@ -234,6 +223,34 @@ const Login = () => {
 
               <Typography variant="h2" color="textSecondary" align="center">Login</Typography>
               <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma</Typography>
+
+              <Box>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  size="medium"
+                  onClick={() => handleLogin({ type: 'google' })}
+                  disabled={state.isLoading}
+                  sx={{ margin: '8px 0px 0px' }}
+                >
+                  <GoogleIcon />
+                  Google
+                </Button>
+
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  size="medium"
+                  onClick={() => handlLogout({ type: 'google' })}
+                  disabled={state.isLoading}
+                  sx={{ margin: '8px 0px 0px' }}
+                >
+
+                  Logout
+                </Button>
+              </Box>
 
               <form
                 sx={{
@@ -284,10 +301,10 @@ const Login = () => {
                   color="secondary"
                   size="large"
                   onClick={() => updateErrors()}
-                  disabled={state.loading}
+                  disabled={state.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
-                  {!state.loading && 'Entrar'}
+                  {!state.isLoading && 'Entrar'}
                   {/* {state.loading && (
                     <>
                       Entrando...

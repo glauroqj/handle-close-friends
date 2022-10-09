@@ -1,9 +1,12 @@
 ## Links
 
-- https://developers.facebook.com/docs/instagram-basic-display-api/getting-started
+- https://blog.jarrodwatts.com/the-ultimate-guide-to-firebase-with-nextjs
 
-- https://developers.facebook.com/docs/instagram-basic-display-api/guides/getting-access-tokens-and-permissions
+## Dive into MVVM
 
-- https://developers.facebook.com/apps/619394426458595/instagram-basic-display/basic-display/
+# MVVM has four main blocks:
 
-## Getting Started
+- The View — UI layer that users interact with,
+- The ViewController — has access to the ViewModel and handles user input,
+- The ViewModel — has access to the Model and handles business logic,
+- The Model — application data source

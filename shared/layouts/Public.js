@@ -4,8 +4,13 @@ import Head from 'next/head'
 import Navbar from 'shared/components/Navbar/Navbar'
 // import Footer from 'components/Footer/Footer'
 // import LoadingGlobal from 'components/LoadingGlobal/LoadingGlobal'
+/** view model */
+import authViewModel from '___viewModel/authentication'
 
 const Layout = ({ children }) => {
+  const { user } = authViewModel()
+  console.log('< PUBLIC > ', user)
+
   return (
     <>
       <Head>
@@ -14,7 +19,7 @@ const Layout = ({ children }) => {
         )}
       </Head>
       {/* <LoadingGlobal /> */}
-      <Navbar />
+      <Navbar user={user} />
       {children}
       {/* <Footer /> */}
     </>
