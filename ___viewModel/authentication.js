@@ -49,6 +49,11 @@ export default () => {
     type && opts[type]() || new Error('Something got wrong on handleLogin')
   }
 
+  const handlLogout = () => {
+    const { logout } = login()
+    logout()
+  }
+
   return {
     user,
     state,
@@ -56,6 +61,7 @@ export default () => {
     errors,
     setErrors,
     /** methods */
-    handleLogin
+    handleLogin,
+    handlLogout
   }
 }

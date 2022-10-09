@@ -1,7 +1,7 @@
 /** firebase */
 import { db } from "infra/firebase/config"
 /**provider */
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 
 export default () => {
 
@@ -11,9 +11,9 @@ export default () => {
     return auth
   }
 
-  const watchUserAuthentication = (callback) => {
+  const watchUserAuthentication = async (callback) => {
     console.log('< watchUserAuthentication > ', callback)
-    const auth = getUserAuthenticationInstance()
+    const auth = await getUserAuthenticationInstance()
     onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in, see docs for a list of available properties
@@ -69,8 +69,19 @@ export default () => {
     }
   })
 
+  const logout = async () => {
+    const auth = await getUserAuthenticationInstance();
+    signOut(auth).then(() => {
+      console.log('< logout user >')
+      // Sign-out successful.
+    }).catch((error) => {
+      // An error happened.
+    });
+  }
+
   return {
     watchUserAuthentication,
+    logout,
     google
   }
 }
