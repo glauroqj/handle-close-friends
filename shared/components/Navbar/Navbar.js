@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import Avatar from '@mui/material/Avatar'
 /** icons */
 import MenuIcon from '@mui/icons-material/Menu'
 /** style */
@@ -33,26 +34,43 @@ const Navbar = ({ user }) => {
     if (!account) {
       return (
         <>
-          <Link href='/auth' passHref>
+          {/** DESKTOP - TABLET */}
+          <El.NavbarUserDesktop>
+            <Link href='/auth' passHref>
+              <Button
+                color="secondary"
+                variant="contained"
+              >
+                Login
+              </Button>
+            </Link>
+          </El.NavbarUserDesktop>
+
+          {/** MOBILE */}
+          <El.NavbarUserMobile>
             <Button
+              aria-controls="logged-menu"
+              aria-haspopup="true"
               variant="text"
               color="secondary"
-              variant="contained"
-            // onClick={ () => callLoginService() }
+              onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
             >
-              Login
+              <MenuIcon />
             </Button>
-          </Link>
-          {/* <Link href='/criar-conta'>
-            <Button
-              variant="text"
-              color="secondary"
-              variant="outlined"
-            // onClick={ () => callLoginService() }
+            <Menu
+              id="logged-menu"
+              anchorEl={stateNavbar.anchorEl}
+              keepMounted
+              open={stateNavbar.isDropdownOpen}
+              onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
             >
-              Criar Conta
-            </Button>
-          </Link> */}
+              <Link href='/auth' passHref>
+                <MenuItem>
+                  <a>Login</a>
+                </MenuItem>
+              </Link>
+            </Menu>
+          </El.NavbarUserMobile>
         </>
       )
     }
@@ -67,7 +85,7 @@ const Navbar = ({ user }) => {
             color="secondary"
             onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
           >
-            <MoreVertIcon />
+            <Avatar src={user?.photoURL} />
           </Button>
           <Menu
             id="logged-menu"
@@ -76,14 +94,14 @@ const Navbar = ({ user }) => {
             open={stateNavbar.isDropdownOpen}
             onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
           >
-            {/* <Link to='/dashboard'>
+            <Link href='/dashboard'>
               <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                 <El.NavbarLinkItem>
                   Dashboard
                 </El.NavbarLinkItem>
               </MenuItem>
             </Link>
-            <Link to='/myaccount'>
+            {/* <Link to='/myaccount'>
               <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                 <El.NavbarLinkItem>
                   Minha Conta
@@ -124,45 +142,8 @@ const Navbar = ({ user }) => {
 
           <El.NavbarUserContainer>
 
-            {/** DESKTOP - TABLET */}
-            <El.NavbarUserDesktop>
-              <Link href='/auth' passHref>
-                <Button
-                  variant="text"
-                  color="secondary"
-                  variant="contained"
-                // onClick={ () => callLoginService() }
-                >
-                  Login
-                </Button>
-              </Link>
-            </El.NavbarUserDesktop>
+            {chooseTemplate()}
 
-            {/** MOBILE */}
-            <El.NavbarUserMobile>
-              <Button
-                aria-controls="logged-menu"
-                aria-haspopup="true"
-                variant="text"
-                color="secondary"
-                onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
-              >
-                <MenuIcon />
-              </Button>
-              <Menu
-                id="logged-menu"
-                anchorEl={stateNavbar.anchorEl}
-                keepMounted
-                open={stateNavbar.isDropdownOpen}
-                onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
-              >
-                <Link href='/auth' passHref>
-                  <MenuItem>
-                    <a>Login</a>
-                  </MenuItem>
-                </Link>
-              </Menu>
-            </El.NavbarUserMobile>
           </El.NavbarUserContainer>
 
         </Grid>
