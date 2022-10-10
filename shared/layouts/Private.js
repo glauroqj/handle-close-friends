@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Head from 'next/head'
+import { useEffect } from "react"
 /** components */
 import Navbar from 'shared/components/Navbar/Navbar'
 // import Footer from 'components/Footer/Footer'
@@ -7,9 +8,21 @@ import Navbar from 'shared/components/Navbar/Navbar'
 /** view model */
 import authViewModel from '___viewModel/authentication'
 
-const PublicLayout = ({ children }) => {
+const PrivateLayout = ({ children }) => {
   const { user } = authViewModel()
-  console.log('< PUBLIC > ', user)
+  console.log('< PRIVATE > ', user)
+
+  useEffect(() => {
+    if (!user?.uid && !user?.loading) {
+      console.log('< REDIRECT >')
+    }
+  }, [])
+
+  if (user?.loading) {
+    return (
+      <>Carregando...</>
+    )
+  }
 
   return (
     <>
@@ -26,4 +39,16 @@ const PublicLayout = ({ children }) => {
   )
 }
 
-export default PublicLayout
+// export async function getServerSideProps(context) {
+//   const { user } = authViewModel()
+//   console.log('< PRIVATE GET SERVER > ', user)
+
+//   // if (session) {
+//   //   return { redirect: { destination: '/painel/copas', permanent: false } }
+//   // }
+//   // return {
+//   //   props: { session }
+//   // }
+// }
+
+export default PrivateLayout

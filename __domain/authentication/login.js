@@ -48,7 +48,7 @@ export default () => {
           // The signed-in user info.
           const user = result.user;
 
-          /** CHECK IF USER EXISTS ON DATABASE FIRST */
+          /** ADD or UPDATE USER IN DB */
           await addUser({ user: user })
 
           // console.log('< GOOGLE LOGIN : OK > ', result)

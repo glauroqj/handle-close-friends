@@ -6,7 +6,9 @@ import login from '__domain/authentication/login'
 export default () => {
   // const { isUserAuthenticated } = login()
   // console.log('< AUTH MODEL > ', isUserAuthenticated)
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({
+    loading: true
+  })
 
   const [state, setState] = useState({
     email: '',
@@ -33,7 +35,7 @@ export default () => {
 
   const watchAuth = (payload) => {
     console.log('< WATCH AUTH > ', payload)
-    setUser({ ...payload })
+    setUser({ ...payload, loading: false })
   }
 
   /** main method */
@@ -43,7 +45,7 @@ export default () => {
         const { google } = login()
         const payload = await google()
         console.log('< LOGIN WITH GOOGLE > ', payload)
-        setUser(payload)
+        setUser({ ...payload, loading: false })
       }
     }
 
