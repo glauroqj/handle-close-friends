@@ -3,8 +3,8 @@ import Head from 'next/head'
 import { useEffect } from "react"
 /** components */
 import Navbar from 'shared/components/Navbar/Navbar'
+import LoadingGlobal from 'shared/components/LoadingGlobal/LoadingGlobal'
 // import Footer from 'components/Footer/Footer'
-// import LoadingGlobal from 'components/LoadingGlobal/LoadingGlobal'
 /** view model */
 import authViewModel from '___viewModel/authentication'
 
@@ -18,9 +18,10 @@ const PrivateLayout = ({ children }) => {
     }
   }, [])
 
+
   if (user?.loading) {
     return (
-      <>Carregando...</>
+      <LoadingGlobal />
     )
   }
 
@@ -31,7 +32,7 @@ const PrivateLayout = ({ children }) => {
           <meta name="robots" content="noindex" />
         )}
       </Head>
-      {/* <LoadingGlobal /> */}
+      <LoadingGlobal />
       <Navbar user={user} />
       {children}
       {/* <Footer /> */}
