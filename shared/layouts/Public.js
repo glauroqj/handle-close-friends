@@ -8,7 +8,7 @@ import Navbar from 'shared/components/Navbar/Navbar'
 import authViewModel from '___viewModel/authentication'
 
 const PublicLayout = ({ children }) => {
-  const { userState } = authViewModel()
+  const { userState, handlLogout } = authViewModel()
   console.log('< PUBLIC > ', userState)
 
   return (
@@ -19,7 +19,10 @@ const PublicLayout = ({ children }) => {
         )}
       </Head>
       {/* <LoadingGlobal /> */}
-      <Navbar userState={userState} />
+      <Navbar
+        userState={userState}
+        handlLogout={handlLogout}
+      />
       {children}
       {/* <Footer /> */}
     </>

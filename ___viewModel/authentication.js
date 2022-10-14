@@ -2,32 +2,10 @@
 import { useState, useEffect, useReducer } from "react"
 
 import login from '__domain/authentication/login'
+/** reducers */
+import userReducerHandler from '__domain/authentication/_userReducer'
 
 export default () => {
-  // const { isUserAuthenticated } = login()
-  // console.log('< AUTH MODEL > ', isUserAuthenticated)
-  function userReducerHandler(state, action) {
-    console.log('< USER REDUCER > ', action)
-    switch (action.type) {
-      case 'LOGIN_LOADING': return {
-        ...state,
-        loading: true
-      };
-      case 'LOGIN_SUCCESS': return {
-        ...state,
-        ...action.payload,
-        loading: false
-      };
-      case 'LOGIN_UNAUTHORIZED': return {
-        loading: false,
-        uid: '',
-        displayName: '',
-        email: ''
-      };
-      default: return state;
-    }
-  }
-
   const [userState, userDispatch] = useReducer(userReducerHandler,
     {
       loading: true

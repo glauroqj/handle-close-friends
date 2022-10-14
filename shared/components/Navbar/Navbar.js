@@ -18,7 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = ({ userState }) => {
+const Navbar = ({ userState, handlLogout }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
@@ -107,14 +107,18 @@ const Navbar = ({ userState }) => {
                   Minha Conta
                 </El.NavbarLinkItem>
               </MenuItem>
-            </Link>
-            <Link to='/'>
-              <MenuItem onClick={async () => await dispatch( logoutService(), setStateNavbar({isDropdownOpen: false, anchorEl: null}) )}>
+            </Link> */}
+            <Link href='/'>
+              <MenuItem onClick={() => {
+                handlLogout()
+                setStateNavbar({ isDropdownOpen: false, anchorEl: null })
+              }}
+              >
                 <El.NavbarLinkItem>
                   Sair
                 </El.NavbarLinkItem>
               </MenuItem>
-            </Link> */}
+            </Link>
           </Menu>
         </El.NavbarUserContainer>
       )
@@ -161,7 +165,8 @@ const Navbar = ({ userState }) => {
 // }
 
 Navbar.propTypes = {
-  userState: PropTypes.object.isRequired
+  userState: PropTypes.object.isRequired,
+  handlLogout: PropTypes.func.isRequired
 }
 
 export default Navbar
