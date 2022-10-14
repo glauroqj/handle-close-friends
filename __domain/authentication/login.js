@@ -2,6 +2,8 @@
 import { db } from "infra/firebase/config"
 /**provider */
 import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+/** handle */
+import { addUser } from '__domain/authentication/_handleUserAccount'
 
 export default () => {
 
@@ -39,12 +41,15 @@ export default () => {
       resolve({ ...auth?.currentUser })
     } else {
       signInWithPopup(auth, provider)
-        .then((result) => {
+        .then(async (result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           // The signed-in user info.
           const user = result.user;
+
+          /** ADD or UPDATE USER IN DB */
+          await addUser({ user: user })
 
           // console.log('< GOOGLE LOGIN : OK > ', result)
           resolve({ ...user })

@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
 import "firebase/auth";
+import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -32,4 +32,6 @@ export { initFirebase, db, app };
 
 /**
   DOC: https://github.com/bjcarlson42/nextjs-with-firebase 
+
+  Firestore: https://firebase.google.com/docs/firestore/quickstart
 */

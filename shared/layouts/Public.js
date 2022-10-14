@@ -1,17 +1,18 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Head from 'next/head'
+import { useMemo } from "react"
 /** components */
 import Navbar from 'shared/components/Navbar/Navbar'
 // import Footer from 'components/Footer/Footer'
 // import LoadingGlobal from 'components/LoadingGlobal/LoadingGlobal'
 /** view model */
-import authViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/auth/authentication'
 
-const Layout = ({ children }) => {
-  const { user } = authViewModel()
-  console.log('< PUBLIC > ', user)
+const PublicLayout = ({ children }) => {
+  const { userState, handlLogout } = authViewModel()
+  console.log('< PUBLIC > ', userState)
 
-  return (
+  return useMemo(() => (
     <>
       <Head>
         {process.env.NEXT_PUBLIC_CLIENT_APP_ENVIRONMENT !== 'production' && (
@@ -19,11 +20,14 @@ const Layout = ({ children }) => {
         )}
       </Head>
       {/* <LoadingGlobal /> */}
-      <Navbar user={user} />
+      <Navbar
+        userState={userState}
+        handlLogout={handlLogout}
+      />
       {children}
       {/* <Footer /> */}
     </>
-  )
+  ), [children, userState])
 }
 
-export default Layout
+export default PublicLayout

@@ -1,7 +1,7 @@
 /** next */
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
-// import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 /** components */
 import Grid from '@mui/material/Grid'
 import AppBar from '@mui/material/AppBar'
@@ -11,27 +11,27 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Avatar from '@mui/material/Avatar'
+/** shared components */
+import Loading from 'shared/components/Loading/Loading'
 /** icons */
 import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = ({ user }) => {
+const Navbar = ({ userState, handlLogout }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
     showAlert: true
   })
 
-  let account = user?.uid ? true : false
-
-  console.log('< NAVBAR > ', user)
+  console.log('< NAVBAR > ', userState)
 
   const chooseTemplate = () => {
 
     // if (loading) return <Loading color='secondary' />
 
-    if (!account) {
+    if (!userState?.uid) {
       return (
         <>
           {/** DESKTOP - TABLET */}
@@ -75,7 +75,7 @@ const Navbar = ({ user }) => {
       )
     }
 
-    if (account) {
+    if (userState?.uid) {
       return (
         <El.NavbarUserContainer className="animated fadeIn">
           <Button
@@ -85,7 +85,7 @@ const Navbar = ({ user }) => {
             color="secondary"
             onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
           >
-            <Avatar src={user?.photoURL} />
+            <Avatar src={userState?.photoURL} />
           </Button>
           <Menu
             id="logged-menu"
@@ -107,14 +107,18 @@ const Navbar = ({ user }) => {
                   Minha Conta
                 </El.NavbarLinkItem>
               </MenuItem>
-            </Link>
-            <Link to='/'>
-              <MenuItem onClick={async () => await dispatch( logoutService(), setStateNavbar({isDropdownOpen: false, anchorEl: null}) )}>
+            </Link> */}
+            <Link href='/'>
+              <MenuItem onClick={() => {
+                handlLogout()
+                setStateNavbar({ isDropdownOpen: false, anchorEl: null })
+              }}
+              >
                 <El.NavbarLinkItem>
                   Sair
                 </El.NavbarLinkItem>
               </MenuItem>
-            </Link> */}
+            </Link>
           </Menu>
         </El.NavbarUserContainer>
       )
@@ -142,7 +146,10 @@ const Navbar = ({ user }) => {
 
           <El.NavbarUserContainer>
 
-            {chooseTemplate()}
+            {userState?.loading
+              ? <Loading color="secondary" />
+              : chooseTemplate()
+            }
 
           </El.NavbarUserContainer>
 
@@ -154,11 +161,12 @@ const Navbar = ({ user }) => {
 }
 
 // Navbar.defaultProps = {
-//   active: ''
+//   uid: ''
 // }
 
-// Navbar.propTypes = {
-//   state: PropTypes.object.isRequired
-// }
+Navbar.propTypes = {
+  userState: PropTypes.object.isRequired,
+  handlLogout: PropTypes.func.isRequired
+}
 
 export default Navbar

@@ -29,11 +29,26 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/auth/authentication'
+import formViewModal from '___viewModel/auth/formLogin'
 
 const Login = () => {
-  const { user, state, setState, errors, setErrors, handleLogin, handlLogout } = authViewModel()
-  console.log('< AUTH STATE > ', user, state, errors)
+  const {
+    userState,
+    /** handlers */
+    handleLogin,
+    handlLogout
+  } = authViewModel()
+
+  const {
+    formState,
+    formDispatch,
+    /** reducers */
+    errorFormState,
+    errorFormDispatch,
+  } = formViewModal()
+
+  console.log('< AUTH STATE > ', userState, formState, errorFormState)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 
@@ -59,13 +74,12 @@ const Login = () => {
 
   const submit = async () => {
     const { redirect } = router?.query || false
-    const { email, password, captcha } = state
+    const { email, password, captcha } = formState
 
     if (email === '' || password === '') return false
 
-    setState({
-      ...state,
-      loading: true
+    formDispatch({
+      type: 'EMAIL_PASSWORD_LOADING'
     })
 
     /** store user pass */
@@ -114,10 +128,10 @@ const Login = () => {
   }
 
   const updateErrors = () => {
-    const { email, password } = state
+    const { email, password } = formState
 
     const errorPayload = {
-      ...errors,
+      ...errorFormState,
       errorsCount: []
     }
 
@@ -146,12 +160,17 @@ const Login = () => {
       }
     }
 
-    errors.fields.forEach((field) => {
+    errorFormState.fields.forEach((field) => {
       /** reset each field */
       errorPayload[field].text = ''
       validationOptions[field](field)
     })
-    setErrors(errorPayload)
+
+    errorFormDispatch({
+      type: 'UPDATE_INPUT_ERRORS',
+      payload: { ...errorPayload }
+    })
+    // setErrors(errorPayload)
 
     console.log('< ERRORS COUNT > ', errorPayload)
     if (errorPayload.errorsCount.length === 0) submit()
@@ -231,7 +250,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handleLogin({ type: 'google' })}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || formState?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   <GoogleIcon />
@@ -244,7 +263,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handlLogout({ type: 'google' })}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || formState?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
 
@@ -273,12 +292,20 @@ const Login = () => {
                   fullWidth
                   required
                   style={{ margin: '8px 0' }}
-                  onChange={(e) => setState({ ...state, email: e.target.value })}
+                  onChange={(e) => {
+                    formDispatch({
+                      type: 'UPDATE_INPUT_VALUE',
+                      payload: {
+                        email: e.target.value
+                      }
+                    })
+                  }}
                   inputProps={{ maxLength: 100 }}
-                  helperText={errors.email.text}
-                  error={errors.email.text ? true : false}
-                  value={state.email}
+                  helperText={errorFormState.email.text}
+                  error={errorFormState.email.text ? true : false}
+                  value={formState.email}
                   autoComplete="email"
+                  disabled={userState?.loading || formState?.loading}
                 />
 
                 <TextField
@@ -288,11 +315,19 @@ const Login = () => {
                   fullWidth
                   required
                   style={{ margin: '8px 0' }}
-                  onChange={(e) => setState({ ...state, password: e.target.value })}
+                  onChange={(e) => {
+                    formDispatch({
+                      type: 'UPDATE_INPUT_VALUE',
+                      payload: {
+                        password: e.target.value
+                      }
+                    })
+                  }}
                   inputProps={{ maxLength: 100 }}
-                  helperText={errors.password.text}
-                  error={errors.password.text ? true : false}
-                  value={state.password}
+                  helperText={errorFormState.password.text}
+                  error={errorFormState.password.text ? true : false}
+                  value={formState.password}
+                  disabled={userState?.loading || formState?.loading}
                 />
 
                 <Button
@@ -301,10 +336,10 @@ const Login = () => {
                   color="secondary"
                   size="large"
                   onClick={() => updateErrors()}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || formState?.loading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
-                  {!state.isLoading && 'Entrar'}
+                  {!formState.loading && 'Entrar'}
                   {/* {state.loading && (
                     <>
                       Entrando...
@@ -313,7 +348,7 @@ const Login = () => {
                   )} */}
                 </Button>
 
-                <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
+                {/* <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
                   <Link href="/recuperar-senha">
                     <Button variant="outlined" color="secondary" size="small">
                       Esqueceu a senha?
@@ -325,7 +360,7 @@ const Login = () => {
                       Quero criar conta
                     </Button>
                   </Link>
-                </Box>
+                </Box> */}
 
               </form>
             </Paper>
