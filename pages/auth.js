@@ -231,7 +231,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handleLogin({ type: 'google' })}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || state?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   <GoogleIcon />
@@ -244,7 +244,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handlLogout({ type: 'google' })}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || state?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
 
@@ -279,6 +279,7 @@ const Login = () => {
                   error={errors.email.text ? true : false}
                   value={state.email}
                   autoComplete="email"
+                  disabled={userState?.loading || state?.isLoading}
                 />
 
                 <TextField
@@ -293,6 +294,7 @@ const Login = () => {
                   helperText={errors.password.text}
                   error={errors.password.text ? true : false}
                   value={state.password}
+                  disabled={userState?.loading || state?.isLoading}
                 />
 
                 <Button
@@ -301,7 +303,7 @@ const Login = () => {
                   color="secondary"
                   size="large"
                   onClick={() => updateErrors()}
-                  disabled={state.isLoading}
+                  disabled={userState?.loading || state?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   {!state.isLoading && 'Entrar'}

@@ -19,13 +19,10 @@ export default () => {
         loading: false
       };
       case 'LOGIN_UNAUTHORIZED': return {
-        ...state,
-        ...action.payload,
-        loading: false
-      };
-      case 'LOGOUT': return {
-        ...state,
-        loading: false
+        loading: false,
+        uid: '',
+        displayName: '',
+        email: ''
       };
       default: return state;
     }
@@ -36,10 +33,6 @@ export default () => {
       loading: true
     }
   );
-
-  const [user, setUser] = useState({
-    loading: true
-  })
 
   const [state, setState] = useState({
     email: '',
@@ -84,18 +77,26 @@ export default () => {
 
   /** main method */
   const handleLogin = ({ type }) => {
+    userDispatch({
+      type: 'LOGIN_LOADING'
+    })
+
     const opts = {
       google: async () => {
         const { google } = login()
-        userDispatch({
-          type: 'LOGIN_LOADING'
-        })
         const payload = await google()
         console.log('< LOGIN WITH GOOGLE > ', payload)
-        userDispatch({
-          type: 'LOGIN_SUCCESS',
-          payload: { ...payload }
-        })
+        if (payload?.uid) {
+          userDispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: { ...payload }
+          })
+        } else {
+          userDispatch({
+            type: 'LOGIN_UNAUTHORIZED',
+            payload: {}
+          })
+        }
       }
     }
 
@@ -109,7 +110,6 @@ export default () => {
 
   return {
     userState,
-    user,
     state,
     setState,
     errors,
