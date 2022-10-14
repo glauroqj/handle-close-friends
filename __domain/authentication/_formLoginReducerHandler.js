@@ -6,16 +6,13 @@ function formLoginReducerHandler(state, action) {
       ...action.payload,
       loading: false
     };
-    case 'LOGIN_SUCCESS': return {
+    case 'EMAIL_PASSWORD_LOADING': return {
       ...state,
-      ...action.payload,
-      loading: false
+      loading: true
     };
-    case 'LOGIN_UNAUTHORIZED': return {
-      loading: false,
-      uid: '',
-      displayName: '',
-      email: ''
+    case 'FORM_SUBMIT': return {
+      ...state,
+      loading: true
     };
     default: return state;
   }
@@ -24,20 +21,9 @@ function formLoginReducerHandler(state, action) {
 function formErrorLoginReducerhandler(state, action) {
   console.log('< FORM EMAIL PASSWORD ERROR REDUCER > ', action)
   switch (action.type) {
-    case 'LOGIN_LOADING': return {
+    case 'UPDATE_INPUT_ERRORS': return {
       ...state,
-      loading: true
-    };
-    case 'LOGIN_SUCCESS': return {
-      ...state,
-      ...action.payload,
-      loading: false
-    };
-    case 'LOGIN_UNAUTHORIZED': return {
-      loading: false,
-      uid: '',
-      displayName: '',
-      email: ''
+      ...action?.payload
     };
     default: return state;
   }

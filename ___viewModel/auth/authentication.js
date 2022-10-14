@@ -1,49 +1,17 @@
 /** VIEW MODEL - STATE APPLICATION */
-import { useState, useEffect, useReducer } from "react"
+import { useEffect, useReducer } from "react"
 
 import login from '__domain/authentication/login'
 /** reducers */
 import userReducerHandler from '__domain/authentication/_userReducer'
-import {
-  formLoginReducerHandler,
-  formErrorLoginReducerhandler
-} from '__domain/authentication/_formLoginReducerHandler'
+
+const userInitialState = {
+  loading: true
+}
 
 export default () => {
-  const [userState, userDispatch] = useReducer(userReducerHandler,
-    {
-      loading: true
-    }
-  );
 
-  const [formState, formDispatch] = useReducer(formLoginReducerHandler,
-    {
-      email: '',
-      password: '',
-      loading: false
-    }
-  );
-
-  const [errorFormState, errorFormDispatch] = useReducer(formErrorLoginReducerhandler,
-    {
-      errorsCount: [],
-      fields: ['email', 'password'],
-      email: {
-        text: ''
-      },
-      password: {
-        text: ''
-      }
-    }
-  );
-
-  // const [state, setState] = useState({
-
-  // })
-
-  // const [errors, setErrors] = useState({
-
-  // })
+  const [userState, userDispatch] = useReducer(userReducerHandler, userInitialState);
 
   useEffect(() => {
     const { watchUserAuthentication } = login()
@@ -62,8 +30,7 @@ export default () => {
       })
     } else {
       userDispatch({
-        type: 'LOGIN_UNAUTHORIZED',
-        payload: {}
+        type: 'LOGIN_UNAUTHORIZED'
       })
     }
   }
@@ -86,8 +53,7 @@ export default () => {
           })
         } else {
           userDispatch({
-            type: 'LOGIN_UNAUTHORIZED',
-            payload: {}
+            type: 'LOGIN_UNAUTHORIZED'
           })
         }
       }
@@ -104,13 +70,6 @@ export default () => {
   return {
     userState,
     userDispatch,
-
-    formState,
-    formDispatch,
-
-    errorFormState,
-    errorFormDispatch,
-
     /** methods */
     handleLogin,
     handlLogout,

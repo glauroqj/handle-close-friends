@@ -11,10 +11,11 @@ function userReducerHandler(state, action) {
       loading: false
     };
     case 'LOGIN_UNAUTHORIZED': return {
-      loading: false,
       uid: '',
       displayName: '',
-      email: ''
+      email: '',
+      loading: false,
+      isInvalidAuth: true
     };
     default: return state;
   }

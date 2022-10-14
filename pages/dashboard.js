@@ -29,11 +29,13 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/auth/authentication'
 
 const Dashboard = () => {
-  const { user, state, setState, errors, setErrors, handleLogin, handlLogout } = authViewModel()
-  console.log('< AUTH STATE > ', user, state, errors)
+  const {
+    userState,
+  } = authViewModel()
+  console.log('< DASHBOARD STATE > ', userState)
   // const router = useRouter()
 
   return (

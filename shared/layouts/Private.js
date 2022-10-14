@@ -3,26 +3,26 @@ import Head from 'next/head'
 import { useEffect } from "react"
 /** components */
 import Navbar from 'shared/components/Navbar/Navbar'
-import LoadingGlobal from 'shared/components/LoadingGlobal/LoadingGlobal'
+import Loading from 'shared/components/Loading/Loading'
 // import Footer from 'components/Footer/Footer'
 /** view model */
-import authViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/auth/authentication'
 
 const PrivateLayout = ({ children }) => {
-  const { user } = authViewModel()
-  console.log('< PRIVATE > ', user)
+  const { userState, handlLogout } = authViewModel()
+  console.log('< PRIVATE > ', userState)
 
   useEffect(() => {
-    if (!user?.uid && !user?.loading) {
+    if (!userState?.uid && userState?.isInvalidAuth) {
       console.log('< REDIRECT >')
       window.location.href = '/auth'
     }
-  }, [user])
+  }, [userState])
 
 
-  if (user?.loading) {
+  if (userState?.loading || userState?.isInvalidAuth) {
     return (
-      <LoadingGlobal />
+      <Loading text='Loading...' color='secondary' />
     )
   }
 
@@ -34,7 +34,10 @@ const PrivateLayout = ({ children }) => {
         )}
       </Head>
       <LoadingGlobal />
-      <Navbar user={user} />
+      <Navbar
+        userState={userState}
+        handlLogout={handlLogout}
+      />
       {children}
       {/* <Footer /> */}
     </>

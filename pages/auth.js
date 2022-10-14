@@ -29,21 +29,26 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/authentication'
+import authViewModel from '___viewModel/auth/authentication'
+import formViewModal from '___viewModel/auth/formLogin'
 
 const Login = () => {
   const {
     userState,
-    formState,
-    formDispatch,
-    /** reducers */
-    formDispatch,
-    errorFormDispatch,
     /** handlers */
     handleLogin,
     handlLogout
   } = authViewModel()
-  console.log('< AUTH STATE > ', userState)
+
+  const {
+    formState,
+    formDispatch,
+    /** reducers */
+    errorFormState,
+    errorFormDispatch,
+  } = formViewModal()
+
+  console.log('< AUTH STATE > ', userState, formState, errorFormState)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 
@@ -69,13 +74,12 @@ const Login = () => {
 
   const submit = async () => {
     const { redirect } = router?.query || false
-    const { email, password, captcha } = state
+    const { email, password, captcha } = formState
 
     if (email === '' || password === '') return false
 
-    setState({
-      ...state,
-      loading: true
+    formDispatch({
+      type: 'EMAIL_PASSWORD_LOADING'
     })
 
     /** store user pass */
@@ -127,7 +131,7 @@ const Login = () => {
     const { email, password } = formState
 
     const errorPayload = {
-      ...errors,
+      ...errorFormState,
       errorsCount: []
     }
 
@@ -156,7 +160,7 @@ const Login = () => {
       }
     }
 
-    errors.fields.forEach((field) => {
+    errorFormState.fields.forEach((field) => {
       /** reset each field */
       errorPayload[field].text = ''
       validationOptions[field](field)
@@ -246,7 +250,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handleLogin({ type: 'google' })}
-                  disabled={userState?.loading || state?.isLoading}
+                  disabled={userState?.loading || formState?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   <GoogleIcon />
@@ -259,7 +263,7 @@ const Login = () => {
                   color="secondary"
                   size="medium"
                   onClick={() => handlLogout({ type: 'google' })}
-                  disabled={userState?.loading || state?.isLoading}
+                  disabled={userState?.loading || formState?.isLoading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
 
