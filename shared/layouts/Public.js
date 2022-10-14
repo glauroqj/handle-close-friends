@@ -8,8 +8,8 @@ import Navbar from 'shared/components/Navbar/Navbar'
 import authViewModel from '___viewModel/authentication'
 
 const PublicLayout = ({ children }) => {
-  const { user } = authViewModel()
-  console.log('< PUBLIC > ', user)
+  const { userState } = authViewModel()
+  console.log('< PUBLIC > ', userState)
 
   return (
     <>
@@ -19,7 +19,7 @@ const PublicLayout = ({ children }) => {
         )}
       </Head>
       {/* <LoadingGlobal /> */}
-      <Navbar user={user} />
+      <Navbar userState={userState} />
       {children}
       {/* <Footer /> */}
     </>

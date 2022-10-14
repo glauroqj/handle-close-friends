@@ -32,8 +32,8 @@ import GoogleIcon from '@mui/icons-material/Google'
 import authViewModel from '___viewModel/authentication'
 
 const Login = () => {
-  const { user, state, setState, errors, setErrors, handleLogin, handlLogout } = authViewModel()
-  console.log('< AUTH STATE > ', user, state, errors)
+  const { userState, state, setState, errors, setErrors, handleLogin, handlLogout, } = authViewModel()
+  console.log('< AUTH STATE > ', userState)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 

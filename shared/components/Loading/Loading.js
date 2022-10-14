@@ -8,7 +8,9 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'
 const Loading = ({ text, color }) => (
   <El.LoadingContainer hasText={text ? true : false}>
     <HourglassEmptyIcon color={color} size={30} />
-    {text}
+    {text && (
+      { text }
+    )}
   </El.LoadingContainer>
 )
 

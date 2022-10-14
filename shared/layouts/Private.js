@@ -15,8 +15,9 @@ const PrivateLayout = ({ children }) => {
   useEffect(() => {
     if (!user?.uid && !user?.loading) {
       console.log('< REDIRECT >')
+      window.location.href = '/auth'
     }
-  }, [])
+  }, [user])
 
 
   if (user?.loading) {

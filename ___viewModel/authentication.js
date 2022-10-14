@@ -1,11 +1,42 @@
 /** VIEW MODEL - STATE APPLICATION */
-import { useState, useEffect } from "react"
+import { useState, useEffect, useReducer } from "react"
 
 import login from '__domain/authentication/login'
 
 export default () => {
   // const { isUserAuthenticated } = login()
   // console.log('< AUTH MODEL > ', isUserAuthenticated)
+  function userReducerHandler(state, action) {
+    console.log('< USER REDUCER > ', action)
+    switch (action.type) {
+      case 'LOGIN_LOADING': return {
+        ...state,
+        loading: true
+      };
+      case 'LOGIN_SUCCESS': return {
+        ...state,
+        ...action.payload,
+        loading: false
+      };
+      case 'LOGIN_UNAUTHORIZED': return {
+        ...state,
+        ...action.payload,
+        loading: false
+      };
+      case 'LOGOUT': return {
+        ...state,
+        loading: false
+      };
+      default: return state;
+    }
+  }
+
+  const [userState, userDispatch] = useReducer(userReducerHandler,
+    {
+      loading: true
+    }
+  );
+
   const [user, setUser] = useState({
     loading: true
   })
@@ -34,8 +65,21 @@ export default () => {
   }, [])
 
   const watchAuth = (payload) => {
+    const { uid } = payload
     console.log('< WATCH AUTH > ', payload)
-    setUser({ ...payload, loading: false })
+    // setUser({ ...payload, loading: false })
+    /** new way */
+    if (uid) {
+      userDispatch({
+        type: 'LOGIN_SUCCESS',
+        payload: { ...payload }
+      })
+    } else {
+      userDispatch({
+        type: 'LOGIN_UNAUTHORIZED',
+        payload: {}
+      })
+    }
   }
 
   /** main method */
@@ -43,9 +87,15 @@ export default () => {
     const opts = {
       google: async () => {
         const { google } = login()
+        userDispatch({
+          type: 'LOGIN_LOADING'
+        })
         const payload = await google()
         console.log('< LOGIN WITH GOOGLE > ', payload)
-        setUser({ ...payload, loading: false })
+        userDispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: { ...payload }
+        })
       }
     }
 
@@ -58,6 +108,7 @@ export default () => {
   }
 
   return {
+    userState,
     user,
     state,
     setState,
@@ -65,6 +116,7 @@ export default () => {
     setErrors,
     /** methods */
     handleLogin,
-    handlLogout
+    handlLogout,
+    userDispatch
   }
 }
