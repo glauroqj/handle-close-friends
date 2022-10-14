@@ -4,6 +4,10 @@ import { useState, useEffect, useReducer } from "react"
 import login from '__domain/authentication/login'
 /** reducers */
 import userReducerHandler from '__domain/authentication/_userReducer'
+import {
+  formLoginReducerHandler,
+  formErrorLoginReducerhandler
+} from '__domain/authentication/_formLoginReducerHandler'
 
 export default () => {
   const [userState, userDispatch] = useReducer(userReducerHandler,
@@ -12,23 +16,34 @@ export default () => {
     }
   );
 
-  const [state, setState] = useState({
-    email: '',
-    password: '',
-    loginType: '', /** email, google, apple, github */
-    isLoading: false
-  })
-
-  const [errors, setErrors] = useState({
-    errorsCount: [],
-    fields: ['email', 'password'],
-    email: {
-      text: ''
-    },
-    password: {
-      text: ''
+  const [formState, formDispatch] = useReducer(formLoginReducerHandler,
+    {
+      email: '',
+      password: '',
+      loading: false
     }
-  })
+  );
+
+  const [errorFormState, errorFormDispatch] = useReducer(formErrorLoginReducerhandler,
+    {
+      errorsCount: [],
+      fields: ['email', 'password'],
+      email: {
+        text: ''
+      },
+      password: {
+        text: ''
+      }
+    }
+  );
+
+  // const [state, setState] = useState({
+
+  // })
+
+  // const [errors, setErrors] = useState({
+
+  // })
 
   useEffect(() => {
     const { watchUserAuthentication } = login()
@@ -88,13 +103,16 @@ export default () => {
 
   return {
     userState,
-    state,
-    setState,
-    errors,
-    setErrors,
+    userDispatch,
+
+    formState,
+    formDispatch,
+
+    errorFormState,
+    errorFormDispatch,
+
     /** methods */
     handleLogin,
     handlLogout,
-    userDispatch
   }
 }

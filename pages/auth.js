@@ -32,7 +32,17 @@ import GoogleIcon from '@mui/icons-material/Google'
 import authViewModel from '___viewModel/authentication'
 
 const Login = () => {
-  const { userState, state, setState, errors, setErrors, handleLogin, handlLogout, } = authViewModel()
+  const {
+    userState,
+    formState,
+    formDispatch,
+    /** reducers */
+    formDispatch,
+    errorFormDispatch,
+    /** handlers */
+    handleLogin,
+    handlLogout
+  } = authViewModel()
   console.log('< AUTH STATE > ', userState)
   // const router = useRouter()
   // const [ session, loading ] = useSession()
@@ -114,7 +124,7 @@ const Login = () => {
   }
 
   const updateErrors = () => {
-    const { email, password } = state
+    const { email, password } = formState
 
     const errorPayload = {
       ...errors,
@@ -151,7 +161,12 @@ const Login = () => {
       errorPayload[field].text = ''
       validationOptions[field](field)
     })
-    setErrors(errorPayload)
+
+    errorFormDispatch({
+      type: 'UPDATE_INPUT_ERRORS',
+      payload: { ...errorPayload }
+    })
+    // setErrors(errorPayload)
 
     console.log('< ERRORS COUNT > ', errorPayload)
     if (errorPayload.errorsCount.length === 0) submit()
@@ -273,13 +288,20 @@ const Login = () => {
                   fullWidth
                   required
                   style={{ margin: '8px 0' }}
-                  onChange={(e) => setState({ ...state, email: e.target.value })}
+                  onChange={(e) => {
+                    formDispatch({
+                      type: 'UPDATE_INPUT_VALUE',
+                      payload: {
+                        email: e.target.value
+                      }
+                    })
+                  }}
                   inputProps={{ maxLength: 100 }}
-                  helperText={errors.email.text}
-                  error={errors.email.text ? true : false}
-                  value={state.email}
+                  helperText={errorFormState.email.text}
+                  error={errorFormState.email.text ? true : false}
+                  value={formState.email}
                   autoComplete="email"
-                  disabled={userState?.loading || state?.isLoading}
+                  disabled={userState?.loading || formState?.loading}
                 />
 
                 <TextField
@@ -289,12 +311,19 @@ const Login = () => {
                   fullWidth
                   required
                   style={{ margin: '8px 0' }}
-                  onChange={(e) => setState({ ...state, password: e.target.value })}
+                  onChange={(e) => {
+                    formDispatch({
+                      type: 'UPDATE_INPUT_VALUE',
+                      payload: {
+                        password: e.target.value
+                      }
+                    })
+                  }}
                   inputProps={{ maxLength: 100 }}
-                  helperText={errors.password.text}
-                  error={errors.password.text ? true : false}
-                  value={state.password}
-                  disabled={userState?.loading || state?.isLoading}
+                  helperText={errorFormState.password.text}
+                  error={errorFormState.password.text ? true : false}
+                  value={formState.password}
+                  disabled={userState?.loading || formState?.loading}
                 />
 
                 <Button
@@ -303,10 +332,10 @@ const Login = () => {
                   color="secondary"
                   size="large"
                   onClick={() => updateErrors()}
-                  disabled={userState?.loading || state?.isLoading}
+                  disabled={userState?.loading || formState?.loading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
-                  {!state.isLoading && 'Entrar'}
+                  {!formState.loading && 'Entrar'}
                   {/* {state.loading && (
                     <>
                       Entrando...
@@ -315,7 +344,7 @@ const Login = () => {
                   )} */}
                 </Button>
 
-                <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
+                {/* <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
                   <Link href="/recuperar-senha">
                     <Button variant="outlined" color="secondary" size="small">
                       Esqueceu a senha?
@@ -327,7 +356,7 @@ const Login = () => {
                       Quero criar conta
                     </Button>
                   </Link>
-                </Box>
+                </Box> */}
 
               </form>
             </Paper>
