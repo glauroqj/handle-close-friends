@@ -1,5 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import Head from 'next/head'
+import { useRouter } from "next/router"
 import { useMemo } from "react"
 /** components */
 import Navbar from 'shared/components/Navbar/Navbar'
@@ -9,8 +10,9 @@ import Navbar from 'shared/components/Navbar/Navbar'
 import authViewModel from '___viewModel/auth/authentication'
 
 const PublicLayout = ({ children }) => {
+  const { locale } = useRouter()
   const { userState, handlLogout } = authViewModel()
-  console.log('< PUBLIC > ', userState)
+  console.log('< PUBLIC > ', userState, locale)
 
   return useMemo(() => (
     <>

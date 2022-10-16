@@ -31,11 +31,11 @@ import GoogleIcon from '@mui/icons-material/Google'
 /** view model */
 import authViewModel from '___viewModel/auth/authentication'
 
-const Dashboard = ({ lang }) => {
+const Dashboard = ({ locale }) => {
   const {
     userState,
   } = authViewModel()
-  console.log('< DASHBOARD STATE > ', userState, lang)
+  console.log('< DASHBOARD STATE > ', userState, locale)
   // const router = useRouter()
 
   return (
