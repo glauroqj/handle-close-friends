@@ -5,6 +5,9 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet as StyledComponentSheets } from 'styled-components'
 import { ServerStyleSheets as MaterialUiServerStyleSheets } from '@material-ui/styles'
 
+/** utils */
+import language from 'shared/utils/language'
+
 class MyDocument extends Document {
   render() {
     return (
@@ -92,6 +95,9 @@ MyDocument.getInitialProps = async (ctx) => {
   const materialUiSheets = new MaterialUiServerStyleSheets()
   const originalRenderPage = ctx.renderPage
 
+  console.log('< MY DOCUMENTS > ', ctx?.req?.cookies)
+
+  const lang = language({ type: 'server', req: ctx?.req })
   try {
     ctx.renderPage = () =>
       originalRenderPage({

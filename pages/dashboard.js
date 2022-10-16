@@ -31,11 +31,11 @@ import GoogleIcon from '@mui/icons-material/Google'
 /** view model */
 import authViewModel from '___viewModel/auth/authentication'
 
-const Dashboard = () => {
+const Dashboard = ({ lang }) => {
   const {
     userState,
   } = authViewModel()
-  console.log('< DASHBOARD STATE > ', userState)
+  console.log('< DASHBOARD STATE > ', userState, lang)
   // const router = useRouter()
 
   return (
@@ -65,14 +65,20 @@ const Dashboard = () => {
 }
 
 // export async function getServerSideProps(context) {
-//   const session = await getSession(context)
-//   console.log('< LOGIN GET SERVER > ', session)
+//   const { params } = context
+//   // const session = await getSession(context)
+//   console.log('< DASHBOARD GET SERVER > ', context)
 
-//   if (session) {
-//     return { redirect: { destination: '/painel/copas', permanent: false } }
-//   }
+//   // if (session) {
+//   //   return { redirect: { destination: '/painel/copas', permanent: false } }
+//   // }
+//   // return {
+//   //   props: { session }
+//   // }
 //   return {
-//     props: { session }
+//     props: {
+//       lang: params?.lang || 'pt'
+//     }
 //   }
 // }
 

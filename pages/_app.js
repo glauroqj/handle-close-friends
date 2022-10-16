@@ -18,7 +18,7 @@ import { initFirebase } from "infra/firebase/config";
 
 const App = ({ Component, pageProps }) => {
   initFirebase()
-
+  console.log('< MY APP > ', pageProps)
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
     <>
