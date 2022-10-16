@@ -46,6 +46,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
               <Button
                 color="secondary"
                 variant="contained"
+                size='small'
               >
                 Login
               </Button>
@@ -59,6 +60,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
               aria-haspopup="true"
               variant="text"
               color="secondary"
+              size='small'
               onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
             >
               <MenuIcon />
@@ -148,10 +150,15 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
           </El.NavbarLogo>
         </Grid>
 
-        <Grid container direction="row" justifyContent="flex-end">
+        <Grid
+          container
+          alignItems="center"
+          direction="row"
+          justifyContent="flex-end"
+        >
 
-          <Box sx={{ minWidth: 80 }} size="small">
-            <FormControl>
+          <Box sx={{ m: 1, minWidth: 80 }}>
+            <FormControl size="small">
               <InputLabel id="lang-simple-select-label">Lang</InputLabel>
               <Select
                 autoWidth
