@@ -8,6 +8,8 @@ import Navbar from 'shared/components/Navbar/Navbar'
 // import LoadingGlobal from 'components/LoadingGlobal/LoadingGlobal'
 /** view model */
 import authViewModel from '___viewModel/auth/authentication'
+/** utils */
+import handleChangeLang from 'shared/utils/language'
 
 const PublicLayout = ({ children }) => {
   const { locale } = useRouter()
@@ -25,6 +27,8 @@ const PublicLayout = ({ children }) => {
       <Navbar
         userState={userState}
         handlLogout={handlLogout}
+        locale={locale}
+        handleChangeLang={handleChangeLang}
       />
       {children}
       {/* <Footer /> */}

@@ -9,6 +9,8 @@ import LoadingGlobal from 'shared/components/LoadingGlobal/LoadingGlobal'
 // import Footer from 'components/Footer/Footer'
 /** view model */
 import authViewModel from '___viewModel/auth/authentication'
+/** utils */
+import handleChangeLang from 'shared/utils/language'
 
 const PrivateLayout = ({ children }) => {
   const { locale } = useRouter()
@@ -40,6 +42,8 @@ const PrivateLayout = ({ children }) => {
       <Navbar
         userState={userState}
         handlLogout={handlLogout}
+        locale={locale}
+        handleChangeLang={handleChangeLang}
       />
       {children}
       {/* <Footer /> */}

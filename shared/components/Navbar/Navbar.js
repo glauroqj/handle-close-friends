@@ -11,6 +11,12 @@ import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Avatar from '@mui/material/Avatar'
+
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 /** shared components */
 import Loading from 'shared/components/Loading/Loading'
 /** icons */
@@ -18,7 +24,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = ({ userState, handlLogout }) => {
+const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
@@ -144,6 +150,24 @@ const Navbar = ({ userState, handlLogout }) => {
 
         <Grid container direction="row" justifyContent="flex-end">
 
+          <Box sx={{ minWidth: 80 }} size="small">
+            <FormControl>
+              <InputLabel id="lang-simple-select-label">Lang</InputLabel>
+              <Select
+                autoWidth
+                labelId="lang-simple-select-label"
+                id="lang-simple-select"
+                value={locale}
+                label="Lang"
+                onChange={(e) => handleChangeLang(e.target.value)}
+              >
+                <MenuItem value={'en-US'}>EN</MenuItem>
+                <MenuItem value={'es-ES'}>ES</MenuItem>
+                <MenuItem value={'pt-BR'}>PT</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+
           <El.NavbarUserContainer>
 
             {userState?.loading
@@ -166,7 +190,9 @@ const Navbar = ({ userState, handlLogout }) => {
 
 Navbar.propTypes = {
   userState: PropTypes.object.isRequired,
-  handlLogout: PropTypes.func.isRequired
+  handlLogout: PropTypes.func.isRequired,
+  locale: PropTypes.oneOf(["en-US", "es-ES", "pt-BR"]).isRequired,
+  handleChangeLang: PropTypes.func.isRequired
 }
 
 export default Navbar
