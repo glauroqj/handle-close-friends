@@ -1,14 +1,29 @@
 {
   "en-US": {
-    "TITLE": "",
-    "SUB_TITLE": ""
+    "TITLE_MENTOR": "Mentor",
+    "SUB_TITLE_MENTOR": "A mentor is someone who typically provides feedback, advice, and guidance to their mentee",
+    "TITLE_TUTOR": "Tutor",
+    "SUB_TITLE_TUTOR": "A tutor who is there to provide academic assistance with a specific subject matter",
+    "TITLE_PARTICIPANT": "Participant",
+    "SUB_TITLE_PARTICIPANT": "A participant can be tutored or mentored by someone, you can ask for it or answer a form to attend",
+    "BTN_TEXT": "Enter"
   },
   "es-ES": {
-    "TITLE": "",
-    "SUB_TITLE": ""
+    "TITLE_MENTOR": "Mentor",
+    "SUB_TITLE_MENTOR": "A mentor is someone who typically provides feedback, advice, and guidance to their mentee",
+    "TITLE_TUTOR": "Tutor",
+    "SUB_TITLE_TUTOR": "A tutor who is there to provide academic assistance with a specific subject matter",
+    "TITLE_PARTICIPANT": "Participant",
+    "SUB_TITLE_PARTICIPANT": "A participant can be tutored or mentored by someone, you can ask for it or answer a form to attend",
+    "BTN_TEXT": "Enter"
   },
   "pt-BR": {
-    "TITLE": "",
-    "SUB_TITLE": ""
+    "TITLE_MENTOR": "Mentor",
+    "SUB_TITLE_MENTOR": "A mentor is someone who typically provides feedback, advice, and guidance to their mentee",
+    "TITLE_TUTOR": "Tutor",
+    "SUB_TITLE_TUTOR": "A tutor who is there to provide academic assistance with a specific subject matter",
+    "TITLE_PARTICIPANT": "Participant",
+    "SUB_TITLE_PARTICIPANT": "A participant can be tutored or mentored by someone, you can ask for it or answer a form to attend",
+    "BTN_TEXT": "Enter"
   }
 }
