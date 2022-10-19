@@ -1,6 +1,7 @@
 /** next */
 import Head from 'next/head'
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 /** layout */
 import Private from 'shared/layouts/Private'
 /** seo */
@@ -29,13 +30,9 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/auth/authentication'
 
 const Dashboard = ({ locale }) => {
-  const {
-    userState,
-  } = authViewModel()
-  console.log('< DASHBOARD STATE > ', userState, locale)
+
   // const router = useRouter()
 
   return (
@@ -51,11 +48,20 @@ const Dashboard = ({ locale }) => {
           container
           spacing={3}
           justifyContent="center"
+          mt={2}
         // direction="column"
         // alignItems="center"
         >
 
-          DASHBOARD
+          <Grid item xs={4}>
+            Mentor
+          </Grid>
+          <Grid item xs={4}>
+            Tutor
+          </Grid>
+          <Grid item xs={4}>
+            Participant
+          </Grid>
 
         </Grid>
 
@@ -81,5 +87,9 @@ const Dashboard = ({ locale }) => {
 //     }
 //   }
 // }
+
+Dashboard.propTypes = {
+  locale: PropTypes.oneOf(["en-US", "es-ES", "pt-BR"]).isRequired
+}
 
 export default Dashboard
