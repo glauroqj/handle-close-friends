@@ -1,6 +1,8 @@
 /** next */
 import Head from 'next/head'
+import { useRouter } from "next/router"
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 /** layout */
 import Private from 'shared/layouts/Private'
 /** seo */
@@ -18,8 +20,16 @@ import TextField from '@mui/material/TextField'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Button from '@mui/material/Button'
+
+import Card from '@mui/material/Card'
+import CardActions from '@mui/material/CardActions'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
 /** icons */
 import GoogleIcon from '@mui/icons-material/Google'
+import SchoolIcon from '@mui/icons-material/School'
+import Diversity1Icon from '@mui/icons-material/Diversity1'
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
 // /** components */
 // import Loading from 'components/Loading/Loading'
 // /** notification */
@@ -29,14 +39,59 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/auth/authentication'
+
+/** locales */
+import locales from 'shared/locales/dashboard.json'
 
 const Dashboard = () => {
-  const {
-    userState,
-  } = authViewModel()
-  console.log('< DASHBOARD STATE > ', userState)
+  const { locale } = useRouter()
   // const router = useRouter()
+
+  const buildElements = () => {
+    const opts = [
+      {
+        'title': locales[locale]['TITLE_PARTICIPANT'],
+        'sub_title': locales[locale]['SUB_TITLE_PARTICIPANT'],
+        'btn_text': locales[locale]['BTN_TEXT'],
+        'icon': <SchoolIcon />,
+        'link': '/dashboard/participant'
+      },
+      {
+        'title': locales[locale]['TITLE_TUTOR'],
+        'sub_title': locales[locale]['SUB_TITLE_TUTOR'],
+        'btn_text': locales[locale]['BTN_TEXT'],
+        'icon': <Diversity1Icon />,
+        'link': '/dashboard/tutor'
+      },
+      {
+        'title': locales[locale]['TITLE_MENTOR'],
+        'sub_title': locales[locale]['SUB_TITLE_MENTOR'],
+        'btn_text': locales[locale]['BTN_TEXT'],
+        'icon': <EscalatorWarningIcon />,
+        'link': '/dashboard/mentor'
+      }
+    ]
+
+    console.log(opts)
+
+    return opts.map((item, idx) => (
+      <Grid item xs={4} key={idx}>
+        <Card elevation={2}>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div" textAlign="center">
+              {item?.icon} {item?.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {item?.sub_title}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Button size="small" fullWidth>{item?.btn_text}</Button>
+          </CardActions>
+        </Card>
+      </Grid >
+    ))
+  }
 
   return (
     <Private>
@@ -51,11 +106,16 @@ const Dashboard = () => {
           container
           spacing={3}
           justifyContent="center"
+          mt={2}
         // direction="column"
         // alignItems="center"
         >
 
-          DASHBOARD
+          <Grid item xs={12} >
+            <Typography variant="h3" color="textSecondary" align="center">TESTE</Typography>
+          </Grid>
+
+          {buildElements()}
 
         </Grid>
 
@@ -65,15 +125,25 @@ const Dashboard = () => {
 }
 
 // export async function getServerSideProps(context) {
-//   const session = await getSession(context)
-//   console.log('< LOGIN GET SERVER > ', session)
+//   const { params } = context
+//   // const session = await getSession(context)
+//   console.log('< DASHBOARD GET SERVER > ', context)
 
-//   if (session) {
-//     return { redirect: { destination: '/painel/copas', permanent: false } }
-//   }
+//   // if (session) {
+//   //   return { redirect: { destination: '/painel/copas', permanent: false } }
+//   // }
+//   // return {
+//   //   props: { session }
+//   // }
 //   return {
-//     props: { session }
+//     props: {
+//       lang: params?.lang || 'pt'
+//     }
 //   }
+// }
+
+// Dashboard.propTypes = {
+//   locale: PropTypes.oneOf(["en-US", "es-ES", "pt-BR"]).isRequired
 // }
 
 export default Dashboard

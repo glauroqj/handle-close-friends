@@ -271,7 +271,7 @@ const Login = () => {
                 </Button>
               </Box>
 
-              <form
+              {/* <form
                 sx={{
                   width: '100%', // Fix IE 11 issue.
                   marginTop: '3rem'
@@ -340,15 +340,15 @@ const Login = () => {
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   {!formState.loading && 'Entrar'}
-                  {/* {state.loading && (
+                  {state.loading && (
                     <>
                       Entrando...
                       <Loading />
                     </>
-                  )} */}
+                  )}
                 </Button>
 
-                {/* <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
+                <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
                   <Link href="/recuperar-senha">
                     <Button variant="outlined" color="secondary" size="small">
                       Esqueceu a senha?
@@ -360,9 +360,9 @@ const Login = () => {
                       Quero criar conta
                     </Button>
                   </Link>
-                </Box> */}
+                </Box>
 
-              </form>
+              </form> */}
             </Paper>
           </Grid>
 

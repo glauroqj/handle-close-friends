@@ -105,6 +105,7 @@ MyDocument.getInitialProps = async (ctx) => {
 
     return {
       ...initialProps,
+      lang: 'TESTE',
       styles: [
         <React.Fragment key="styles">
           {initialProps.styles}
