@@ -72,7 +72,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
               open={stateNavbar.isDropdownOpen}
               onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
             >
-              <Link href='/auth' passHref>
+              <Link href='/login' passHref>
                 <MenuItem>
                   <a>Login</a>
                 </MenuItem>

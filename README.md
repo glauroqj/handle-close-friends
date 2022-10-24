@@ -7,6 +7,7 @@
 ## Links
 
 - https://blog.jarrodwatts.com/the-ultimate-guide-to-firebase-with-nextjs
+- https://cloud.google.com/nodejs/docs/reference/firestore/latest
 
 ## Dive into MVVM
 
