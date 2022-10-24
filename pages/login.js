@@ -176,41 +176,6 @@ const Login = () => {
     if (errorPayload.errorsCount.length === 0) submit()
   }
 
-  const login = () => {
-    window.location.href = (`https://api.instagram.com/oauth/authorize?client_id=3217961178471425&redirect_uri=https://handle-close-friends.com.br:5000/auth/instagram&scope=user_profile,user_media&response_type=code&state=1`)
-    // if (window?.FB) {
-    //   window.FB.getLoginStatus(function (response) {
-    //     // statusChangeCallback(response);
-    //     console.log('< RESPONSE > ', response)
-    //     if (response?.status === "unknown") {
-    //       window.FB.login()
-    //     }
-    //     if (response?.status === "connected") {
-    //       window.FB.api(
-    //         "/me/friendlists",
-    //         function (response) {
-    //           console.log('< CALL CLOSE FRIEND > ', response)
-    //           if (response && !response.error) {
-    //             /* handle the result */
-    //             console.log(response)
-    //           }
-    //         }
-
-    //         //           https://api.instagram.com/oauth/authorize
-    //         // ?client_id=3217961178471425
-    //         // &redirect_uri=https://handle-close-friends.com.br:5000/auth/instagram
-    //         // &scope=user_profile,user_media
-    //         // &response_type=code
-    //         // &state=1
-
-    //       );
-    //     }
-    //   });
-    // }
-  }
-
-  const googleLogin = () => { }
-
   return (
     <Public>
       <Head>

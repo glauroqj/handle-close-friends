@@ -1,5 +1,5 @@
 /** firebase */
-import { db } from "infra/firebase/config"
+// import { db } from "infra/firebase/config"
 /**provider */
 import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 /** handle */

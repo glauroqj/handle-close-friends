@@ -42,7 +42,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
         <>
           {/** DESKTOP - TABLET */}
           <El.NavbarUserDesktop>
-            <Link href='/auth' passHref>
+            <Link href='/login' passHref>
               <Button
                 color="secondary"
                 variant="contained"

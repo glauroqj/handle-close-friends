@@ -20,7 +20,7 @@ const PrivateLayout = ({ children }) => {
   useEffect(() => {
     if (!userState?.uid && userState?.isInvalidAuth) {
       console.log('< REDIRECT >')
-      window.location.href = '/auth'
+      window.location.href = '/login'
     }
   }, [userState])
 
@@ -34,9 +34,7 @@ const PrivateLayout = ({ children }) => {
   return (
     <>
       <Head>
-        {process.env.NEXT_PUBLIC_CLIENT_APP_ENVIRONMENT !== 'production' && (
-          <meta name="robots" content="noindex" />
-        )}
+        <meta name="robots" content="noindex" />
       </Head>
       <LoadingGlobal />
       <Navbar
