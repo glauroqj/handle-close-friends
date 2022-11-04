@@ -68,7 +68,7 @@ const Dashboard = () => {
         'sub_title': locales[locale]['SUB_TITLE_MENTOR'],
         'btn_text': locales[locale]['BTN_TEXT'],
         'icon': <EscalatorWarningIcon />,
-        'link': '/dashboard/create/mentor'
+        'link': '/dashboard/mentor'
       }
     ]
 
@@ -86,14 +86,7 @@ const Dashboard = () => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Link href={item?.link}>
-              <Button
-                size='small'
-                fullWidth
-              >
-                {item?.btn_text}
-              </Button>
-            </Link>
+            <Button size="small" fullWidth>{item?.btn_text}</Button>
           </CardActions>
         </Card>
       </Grid >
@@ -122,7 +115,7 @@ const Dashboard = () => {
             <Typography variant="h3" color="textSecondary" align="center">TESTE</Typography>
           </Grid>
 
-          {buildElements()}
+          {/* {buildElements()} */}
 
         </Grid>
 

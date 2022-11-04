@@ -59,6 +59,12 @@ const commonGlobalStyle = (breakpoint, color, space, font) => {
       // overflow-y: overlay;
       padding-bottom: 70px;
       
+      a {
+        text-decoration: none;
+        color: inherit;
+        width: 100%;
+      }
+
       // 640px
       @media ( max-width: ${breakpoint.xs} ) {
         padding-bottom: 70px;
