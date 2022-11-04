@@ -74,7 +74,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
             >
               <Link href='/login' passHref>
                 <MenuItem>
-                  <a>Login</a>
+                  Login
                 </MenuItem>
               </Link>
             </Menu>
@@ -102,13 +102,13 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
             open={stateNavbar.isDropdownOpen}
             onClose={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}
           >
-            <Link href='/dashboard'>
-              <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
-                <El.NavbarLinkItem>
+            <El.NavbarLinkItem>
+              <Link href='/dashboard'>
+                <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                   Dashboard
-                </El.NavbarLinkItem>
-              </MenuItem>
-            </Link>
+                </MenuItem>
+              </Link>
+            </El.NavbarLinkItem>
             {/* <Link to='/myaccount'>
               <MenuItem onClick={() => setStateNavbar({ ...stateNavbar, isDropdownOpen: false })}>
                 <El.NavbarLinkItem>
@@ -116,17 +116,17 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
                 </El.NavbarLinkItem>
               </MenuItem>
             </Link> */}
-            <Link href='/'>
-              <MenuItem onClick={() => {
-                handlLogout()
-                setStateNavbar({ isDropdownOpen: false, anchorEl: null })
-              }}
-              >
-                <El.NavbarLinkItem>
+            <El.NavbarLinkItem>
+              <Link href='/'>
+                <MenuItem onClick={() => {
+                  handlLogout()
+                  setStateNavbar({ isDropdownOpen: false, anchorEl: null })
+                }}
+                >
                   Sair
-                </El.NavbarLinkItem>
-              </MenuItem>
-            </Link>
+                </MenuItem>
+              </Link>
+            </El.NavbarLinkItem>
           </Menu>
         </El.NavbarUserContainer>
       )
@@ -141,11 +141,9 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
         <Grid container direction="row" justifyContent="flex-start">
           <El.NavbarLogo>
             <Link href='/' passHref replace>
-              <a>
-                <Typography variant="h6">
-                  Handle App
-                </Typography>
-              </a>
+              <Typography variant="h6">
+                Handle App
+              </Typography>
             </Link>
           </El.NavbarLogo>
         </Grid>

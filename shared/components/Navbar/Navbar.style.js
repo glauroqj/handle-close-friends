@@ -16,6 +16,11 @@ export const NavbarLinkItem = styled.div`
 export const NavbarUserContainer = styled.div`
   min-width: 64px;
   
+  ul a {
+    text-decoration: none;
+    color: inherit;
+  }
+
   // 1100px
   @media ( min-width: ${props => props.theme.breakpoint.md} ) {
 
