@@ -25,11 +25,13 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
+
 /** icons */
 import GoogleIcon from '@mui/icons-material/Google'
 import SchoolIcon from '@mui/icons-material/School'
 import Diversity1Icon from '@mui/icons-material/Diversity1'
-import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning';
+import EscalatorWarningIcon from '@mui/icons-material/EscalatorWarning'
+import AccountCircle from '@mui/icons-material/AccountCircle'
 // /** components */
 // import Loading from 'components/Loading/Loading'
 // /** notification */
@@ -112,15 +114,164 @@ const Dashboard = () => {
         >
 
           <Grid item xs={12} >
-            <Typography variant="h3" color="textSecondary" align="center">TESTE</Typography>
+            <Typography variant="h3" color="textSecondary" align="center">Create Mentor Profile</Typography>
           </Grid>
+
+
+          <Grid item xs={4}>
+            <Card elevation={2}>
+              <form
+                sx={{
+                  width: '100%', // Fix IE 11 issue.
+                  marginTop: '3rem'
+                }}
+                autoComplete="true"
+                onKeyDown={(e) => {
+                  e?.keyCode === 13 && (
+                    e.preventDefault(),
+                      // updateErrors()
+                      )
+                }}
+              >
+                <CardContent>
+
+                  <Box>
+                    <Typography variant="h6" color="textSecondary" align="left">Education</Typography>
+
+                    <TextField
+                      label="Ex: Formado em Engenharia"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      required
+                      style={{ margin: '8px 0' }}
+                      onChange={(e) => {
+                        formDispatch({
+                          type: 'UPDATE_INPUT_VALUE',
+                          payload: {
+                            email: e.target.value
+                          }
+                        })
+                      }}
+                      inputProps={{ maxLength: 100 }}
+                    // helperText={errorFormState.email.text}
+                    // error={errorFormState.email.text ? true : false}
+                    // value={formState.email}
+                    // autoComplete="email"
+                    // disabled={userState?.loading || formState?.loading}
+                    />
+                  </Box>
+
+                  <Box>
+                    <Typography variant="h6" color="textSecondary" align="left">Experiencies</Typography>
+
+                    <TextField
+                      label="Ex: Ex-Google, Ex-Sympla"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      required
+                      style={{ margin: '8px 0' }}
+                      onChange={(e) => {
+                        formDispatch({
+                          type: 'UPDATE_INPUT_VALUE',
+                          payload: {
+                            email: e.target.value
+                          }
+                        })
+                      }}
+                      inputProps={{ maxLength: 100 }}
+                    // helperText={errorFormState.email.text}
+                    // error={errorFormState.email.text ? true : false}
+                    // value={formState.email}
+                    // autoComplete="email"
+                    // disabled={userState?.loading || formState?.loading}
+                    />
+                  </Box>
+
+                  <Box>
+                    <Typography variant="h6" color="textSecondary" align="left">Certificates</Typography>
+
+                    <TextField
+                      label="Ex: Ex-Google, Ex-Sympla"
+                      type="email"
+                      variant="outlined"
+                      fullWidth
+                      required
+                      style={{ margin: '8px 0' }}
+                      onChange={(e) => {
+                        formDispatch({
+                          type: 'UPDATE_INPUT_VALUE',
+                          payload: {
+                            email: e.target.value
+                          }
+                        })
+                      }}
+                      inputProps={{ maxLength: 100 }}
+                    // helperText={errorFormState.email.text}
+                    // error={errorFormState.email.text ? true : false}
+                    // value={formState.email}
+                    // autoComplete="email"
+                    // disabled={userState?.loading || formState?.loading}
+                    />
+                  </Box>
+
+                  {/* <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  size="large"
+                  onClick={() => updateErrors()}
+                  disabled={userState?.loading || formState?.loading}
+                  sx={{ margin: '8px 0px 0px' }}
+                >
+                  {!formState.loading && 'Entrar'}
+                  {state.loading && (
+                    <>
+                      Entrando...
+                      <Loading />
+                    </>
+                  )}
+                </Button> */}
+
+                  {/* <Box component="div" display="flex" justifyContent="space-around" mt={2} width="100%" >
+                  <Link href="/recuperar-senha">
+                    <Button variant="outlined" color="secondary" size="small">
+                      Esqueceu a senha?
+                    </Button>
+                  </Link>
+
+                  <Link href="/criar-conta">
+                    <Button variant="outlined" color="secondary" size="small">
+                      Quero criar conta
+                    </Button>
+                  </Link>
+                </Box> */}
+
+                </CardContent>
+                <CardActions>
+
+                  <Button
+                    size='large'
+                    variant='contained'
+                    fullWidth
+                  >
+                    Save
+                  </Button>
+
+                </CardActions>
+              </form>
+            </Card>
+          </Grid>
+
+
 
           {/* {buildElements()} */}
 
         </Grid>
 
       </Container>
-    </Private>
+    </Private >
   )
 }
 

@@ -22,6 +22,7 @@ const errorFormInitialState = {
     text: ''
   }
 }
+
 export default () => {
   const [formState, formDispatch] = useReducer(formLoginReducerHandler, formInitialState);
 

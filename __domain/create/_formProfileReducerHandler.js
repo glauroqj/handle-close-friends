@@ -6,10 +6,6 @@ function formProfileReducerHandler(state, action) {
       ...action.payload,
       loading: false
     };
-    case 'EMAIL_PASSWORD_LOADING': return {
-      ...state,
-      loading: true
-    };
     case 'FORM_SUBMIT': return {
       ...state,
       loading: true
