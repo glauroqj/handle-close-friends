@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
       "___viewModel": ["___viewModel/*"],
       "__domain": ["__domain/*"],
       "_services": ["_services/*"],
-      "shared": ["shared/*"],
+      "shared": ["src/shared/*"],
       "public": ["public/*"],
-      "assets": ["assets/*"],
-      "infra": ["infra/*"]
+      "assets": ["src/assets/*"],
+      "infra": ["src/infra/*"]
     }
   },
-  "exclude": ["node_modules", "dist", "infra"]
+  "exclude": ["node_modules", "dist", "src/infra"]
 }
