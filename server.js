@@ -8,8 +8,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: fs.readFileSync("./infra/ssl/handle-close-friends.com.br.key"),
-  cert: fs.readFileSync("./infra/ssl/handle-close-friends.com.br.cert")
+  key: fs.readFileSync("./src/infra/ssl/handle-close-friends.com.br.key"),
+  cert: fs.readFileSync("./src/infra/ssl/handle-close-friends.com.br.cert")
 };
 
 console.log(`< CERT > `,

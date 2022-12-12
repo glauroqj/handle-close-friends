@@ -1,4 +1,5 @@
 /** next */
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Link from 'next/link'
 /** layout */
@@ -33,6 +34,7 @@ import authViewModel from '___viewModel/auth/authentication'
 import formViewModal from '___viewModel/auth/formLoginState'
 
 const Login = () => {
+  const router = useRouter()
   const {
     userState,
     /** handlers */
@@ -48,7 +50,10 @@ const Login = () => {
     errorFormDispatch,
   } = formViewModal()
 
-  console.log('< AUTH STATE > ', userState, formState, errorFormState)
+
+  console.log('< AUTH STATE : LOGIN > ', userState, formState, errorFormState)
+  if (userState?.uid) router.push('/dashboard')
+
   // const router = useRouter()
   // const [ session, loading ] = useSession()
 
