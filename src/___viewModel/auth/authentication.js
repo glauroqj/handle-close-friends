@@ -1,39 +1,43 @@
-/** VIEW MODEL - STATE APPLICATION */
-import { useEffect, useReducer } from "react"
+/** VIEW MODEL - STATE APPLICATION - TALKS TO STORE AND DOMAIN */
+// import { useEffect, useReducer } from "react"
 
-import login from '__domain/authentication/login'
 /** reducers */
-import userReducerHandler from '__domain/authentication/_userReducer'
+// import userReducerHandler from '__domain/authentication/_userReducer'
 
-const userInitialState = {
-  loading: true
-}
+/** store */
+import useSession from '__store/session'
+/** domain */
+import watchLogin from '__domain/authentication/watchLogin'
 
 export default () => {
-
-  const [userState, userDispatch] = useReducer(userReducerHandler, userInitialState);
-
-  useEffect(() => {
-    const { watchUserAuthentication } = login()
-    watchUserAuthentication(watchAuth)
-  }, [])
-
-  const watchAuth = (payload) => {
-    const { uid } = payload
-    console.log('< WATCH AUTH > ', payload)
-    // setUser({ ...payload, loading: false })
-    /** new way */
-    if (uid) {
-      userDispatch({
-        type: 'LOGIN_SUCCESS',
-        payload: { ...payload }
-      })
-    } else {
-      userDispatch({
-        type: 'LOGIN_UNAUTHORIZED'
-      })
-    }
+  const state = {
+    loading: useSession((state) => state.loading),
+    user: useSession((state) => state.user)
   }
+
+  // const [userState, userDispatch] = useReducer(userReducerHandler, userInitialState);
+
+  // useEffect(() => {
+  //   const { watchUserAuthentication } = watchLogin()
+  //   watchUserAuthentication(watchAuth)
+  // }, [])
+
+  // const watchAuth = (payload) => {
+  //   const { uid } = payload
+  //   console.log('< WATCH AUTH > ', payload)
+  //   // setUser({ ...payload, loading: false })
+  //   /** new way */
+  //   if (uid) {
+  //     userDispatch({
+  //       type: 'LOGIN_SUCCESS',
+  //       payload: { ...payload }
+  //     })
+  //   } else {
+  //     userDispatch({
+  //       type: 'LOGIN_UNAUTHORIZED'
+  //     })
+  //   }
+  // }
 
   /** main method */
   const handleLogin = ({ type }) => {
@@ -43,7 +47,7 @@ export default () => {
 
     const opts = {
       google: async () => {
-        const { google } = login()
+        const { google } = watchLogin()
         const payload = await google()
         console.log('< LOGIN WITH GOOGLE > ', payload)
         if (payload?.uid) {
@@ -63,15 +67,16 @@ export default () => {
   }
 
   const handlLogout = () => {
-    const { logout } = login()
+    const { logout } = watchLogin()
     logout()
   }
 
   return {
-    userState,
-    userDispatch,
+    state,
+    // userState,
+    // userDispatch,
     /** methods */
-    handleLogin,
-    handlLogout,
+    // handleLogin,
+    // handlLogout,
   }
 }

@@ -36,10 +36,11 @@ import formViewModal from '___viewModel/auth/formLoginState'
 const Login = () => {
   const router = useRouter()
   const {
-    userState,
-    /** handlers */
-    handleLogin,
-    handlLogout
+    state,
+    // userState,
+    // /** handlers */
+    // handleLogin,
+    // handlLogout
   } = authViewModel()
 
   const {
@@ -51,8 +52,8 @@ const Login = () => {
   } = formViewModal()
 
 
-  console.log('< AUTH STATE : LOGIN > ', userState, formState, errorFormState)
-  if (userState?.uid) router.push('/dashboard')
+  console.log('< AUTH STATE : LOGIN > ', state)
+  // if (userState?.uid) router.push('/dashboard')
 
   // const router = useRouter()
   // const [ session, loading ] = useSession()
@@ -214,7 +215,7 @@ const Login = () => {
               <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma</Typography>
 
               <Box>
-                <Button
+                {/* <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
@@ -225,9 +226,9 @@ const Login = () => {
                 >
                   <GoogleIcon />
                   Google
-                </Button>
+                </Button> */}
 
-                <Button
+                {/* <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
@@ -238,7 +239,7 @@ const Login = () => {
                 >
 
                   Logout
-                </Button>
+                </Button> */}
               </Box>
 
               {/* <form

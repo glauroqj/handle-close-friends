@@ -13,8 +13,8 @@ import handleChangeLang from 'shared/utils/language'
 
 const PublicLayout = ({ children }) => {
   const { locale } = useRouter()
-  const { userState, handlLogout } = authViewModel()
-  console.log('< PUBLIC > ', userState, locale)
+  // const { userState, handlLogout } = authViewModel()
+  // console.log('< PUBLIC > ', userState, locale)
 
   return useMemo(() => (
     <>
@@ -24,16 +24,16 @@ const PublicLayout = ({ children }) => {
         )}
       </Head>
       {/* <LoadingGlobal /> */}
-      <Navbar
+      {/* <Navbar
         userState={userState}
         handlLogout={handlLogout}
         locale={locale}
         handleChangeLang={handleChangeLang}
-      />
+      /> */}
       {children}
       {/* <Footer /> */}
     </>
-  ), [children, userState])
+  ), [children])
 }
 
 export default PublicLayout
