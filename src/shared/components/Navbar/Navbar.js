@@ -24,20 +24,20 @@ import MenuIcon from '@mui/icons-material/Menu'
 /** style */
 import * as El from './Navbar.style'
 
-const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
+const Navbar = ({ session, handlLogout, locale, handleChangeLang }) => {
   const [stateNavbar, setStateNavbar] = useState({
     isDropdownOpen: false,
     anchorEl: null,
     showAlert: true
   })
 
-  console.log('< NAVBAR > ', userState)
+  console.log('< NAVBAR > ', session)
 
   const chooseTemplate = () => {
 
     // if (loading) return <Loading color='secondary' />
 
-    if (!userState?.uid) {
+    if (!session?.uid) {
       return (
         <>
           {/** DESKTOP - TABLET */}
@@ -83,7 +83,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
       )
     }
 
-    if (userState?.uid) {
+    if (session?.uid) {
       return (
         <El.NavbarUserContainer className="animated fadeIn">
           <Button
@@ -93,7 +93,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
             color="secondary"
             onClick={e => setStateNavbar({ ...stateNavbar, isDropdownOpen: true, anchorEl: e.currentTarget })}
           >
-            <Avatar src={userState?.photoURL} />
+            <Avatar src={session?.photoURL} />
           </Button>
           <Menu
             id="logged-menu"
@@ -175,7 +175,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
 
           <El.NavbarUserContainer>
 
-            {userState?.loading
+            {session?.loading
               ? <Loading color="secondary" />
               : chooseTemplate()
             }
@@ -194,7 +194,7 @@ const Navbar = ({ userState, handlLogout, locale, handleChangeLang }) => {
 // }
 
 Navbar.propTypes = {
-  userState: PropTypes.object.isRequired,
+  session: PropTypes.object.isRequired,
   handlLogout: PropTypes.func.isRequired,
   locale: PropTypes.oneOf(["en-US", "es-ES", "pt-BR"]).isRequired,
   handleChangeLang: PropTypes.func.isRequired

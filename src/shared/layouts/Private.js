@@ -8,7 +8,7 @@ import Loading from 'shared/components/Loading/Loading'
 import LoadingGlobal from 'shared/components/LoadingGlobal/LoadingGlobal'
 // import Footer from 'components/Footer/Footer'
 /** view model */
-import authViewModel from '___viewModel/auth/authentication'
+import authViewModel from '___viewModel'
 /** utils */
 import handleChangeLang from 'shared/utils/language'
 

@@ -30,30 +30,30 @@ import GoogleIcon from '@mui/icons-material/Google'
 // import preventXSS from 'utils/preventXSS/client'
 
 /** view model */
-import authViewModel from '___viewModel/auth/authentication'
-import formViewModal from '___viewModel/auth/formLoginState'
+import authViewModel from '___viewModel/authentication/session'
+// import formViewModal from '___viewModel'
 
 const Login = () => {
   const router = useRouter()
   const {
-    state,
-    // userState,
-    // /** handlers */
-    // handleLogin,
+    loadingSession,
+    session,
+    /** handlers */
+    handleLogin,
     // handlLogout
   } = authViewModel()
 
-  const {
-    formState,
-    formDispatch,
-    /** reducers */
-    errorFormState,
-    errorFormDispatch,
-  } = formViewModal()
+  // const {
+  //   formState,
+  //   formDispatch,
+  //   /** reducers */
+  //   errorFormState,
+  //   errorFormDispatch,
+  // } = formViewModal()
 
 
-  console.log('< AUTH STATE : LOGIN > ', state)
-  // if (userState?.uid) router.push('/dashboard')
+  console.log('< AUTH STATE : LOGIN > ', loadingSession, session)
+  if (session?.uid) router.push('/dashboard')
 
   // const router = useRouter()
   // const [ session, loading ] = useSession()
@@ -215,31 +215,31 @@ const Login = () => {
               <Typography variant="body1" color="textSecondary" align="center">Acessar plataforma</Typography>
 
               <Box>
-                {/* <Button
+                <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
                   size="medium"
                   onClick={() => handleLogin({ type: 'google' })}
-                  disabled={userState?.loading || formState?.isLoading}
+                  disabled={session?.loading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   <GoogleIcon />
                   Google
-                </Button> */}
+                </Button>
 
-                {/* <Button
+                <Button
                   fullWidth
                   variant="contained"
                   color="secondary"
                   size="medium"
                   onClick={() => handlLogout({ type: 'google' })}
-                  disabled={userState?.loading || formState?.isLoading}
+                  disabled={session?.loading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
 
                   Logout
-                </Button> */}
+                </Button>
               </Box>
 
               {/* <form
@@ -276,7 +276,7 @@ const Login = () => {
                   error={errorFormState.email.text ? true : false}
                   value={formState.email}
                   autoComplete="email"
-                  disabled={userState?.loading || formState?.loading}
+                  disabled={session?.loading || formState?.loading}
                 />
 
                 <TextField
@@ -298,7 +298,7 @@ const Login = () => {
                   helperText={errorFormState.password.text}
                   error={errorFormState.password.text ? true : false}
                   value={formState.password}
-                  disabled={userState?.loading || formState?.loading}
+                  disabled={session?.loading || formState?.loading}
                 />
 
                 <Button
@@ -307,7 +307,7 @@ const Login = () => {
                   color="secondary"
                   size="large"
                   onClick={() => updateErrors()}
-                  disabled={userState?.loading || formState?.loading}
+                  disabled={session?.loading || formState?.loading}
                   sx={{ margin: '8px 0px 0px' }}
                 >
                   {!formState.loading && 'Entrar'}
