@@ -21,15 +21,16 @@ export default () => {
 
   const authSessionListener = (payload) => {
     const { uid } = payload
-    console.log('\x1b[34m < authSessionListener > ', payload)
     /** new way */
     if (uid) {
+      console.log('\x1b[32m < authSessionListener : success > ', payload)
       loginSucess(payload)
       // userDispatch({
       //   type: 'LOGIN_SUCCESS',
       //   payload: { ...payload }
       // })
     } else {
+      console.log('\x1b[31m < authSessionListener : unauthorized > ', payload)
       loginUnauthorized()
       // userDispatch({
       //   type: 'LOGIN_UNAUTHORIZED'

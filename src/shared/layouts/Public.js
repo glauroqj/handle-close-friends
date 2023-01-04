@@ -22,25 +22,7 @@ const PublicLayout = ({ children }) => {
   }, [])
 
 
-  // return (
-  //   <>
-  //     <Head>
-  //       {process.env.NEXT_PUBLIC_CLIENT_APP_ENVIRONMENT !== 'production' && (
-  //         <meta name="robots" content="noindex" />
-  //       )}
-  //     </Head>
-  //     {/* <LoadingGlobal /> */}
-  //     <Navbar
-  //       session={session}
-  //       handlLogout={handlLogout}
-  //       locale={locale}
-  //       handleChangeLang={handleChangeLang}
-  //     />
-  //     {children}
-  //     {/* <Footer /> */}
-  //   </>
-  // )
-  return useMemo(() => (
+  return (
     <>
       <Head>
         {process.env.NEXT_PUBLIC_CLIENT_APP_ENVIRONMENT !== 'production' && (
@@ -57,7 +39,25 @@ const PublicLayout = ({ children }) => {
       {children}
       {/* <Footer /> */}
     </>
-  ), [children, session])
+  )
+  // return useMemo(() => (
+  //   <>
+  //     <Head>
+  //       {process.env.NEXT_PUBLIC_CLIENT_APP_ENVIRONMENT !== 'production' && (
+  //         <meta name="robots" content="noindex" />
+  //       )}
+  //     </Head>
+  //     {/* <LoadingGlobal /> */}
+  //     <Navbar
+  //       session={session}
+  //       handlLogout={handlLogout}
+  //       locale={locale}
+  //       handleChangeLang={handleChangeLang}
+  //     />
+  //     {children}
+  //     {/* <Footer /> */}
+  //   </>
+  // ), [children, session])
 }
 
 export default PublicLayout

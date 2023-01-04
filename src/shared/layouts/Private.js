@@ -8,24 +8,29 @@ import Loading from 'shared/components/Loading/Loading'
 import LoadingGlobal from 'shared/components/LoadingGlobal/LoadingGlobal'
 // import Footer from 'components/Footer/Footer'
 /** view model */
-import authViewModel from '___viewModel'
+import authViewModel from '___viewModel/authentication/session'
 /** utils */
 import handleChangeLang from 'shared/utils/language'
 
 const PrivateLayout = ({ children }) => {
   const { locale } = useRouter()
-  const { userState, handlLogout } = authViewModel()
-  console.log('< PRIVATE > ', userState, locale)
+  const { handleAuthSessionStart, handlLogout, session } = authViewModel()
+  console.log('< PRIVATE > ', session, locale)
 
   useEffect(() => {
-    if (!userState?.uid && userState?.isInvalidAuth) {
+    /** start watch some changes on session */
+    handleAuthSessionStart()
+  }, [])
+
+  useEffect(() => {
+    if (!session?.uid && session?.isInvalidAuth) {
       console.log('< REDIRECT >')
       window.location.href = '/login'
     }
-  }, [userState])
+  }, [session])
 
 
-  if (userState?.loading || userState?.isInvalidAuth) {
+  if (session?.loading || session?.isInvalidAuth) {
     return (
       <Loading text='Loading...' color='secondary' />
     )
@@ -38,7 +43,7 @@ const PrivateLayout = ({ children }) => {
       </Head>
       <LoadingGlobal />
       <Navbar
-        userState={userState}
+        session={session}
         handlLogout={handlLogout}
         locale={locale}
         handleChangeLang={handleChangeLang}

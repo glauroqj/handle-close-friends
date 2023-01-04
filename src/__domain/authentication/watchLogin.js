@@ -9,7 +9,6 @@ export default () => {
 
   const getUserAuthenticationInstance = async () => {
     const auth = await getAuth()
-    console.log(auth)
     return auth
   }
 
@@ -21,7 +20,7 @@ export default () => {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
         const uid = user.uid;
-        console.log('< watchUserAuthentication > ', user)
+        console.log('\x1b[33m < onAuthStateChanged : called > ', user)
         callback(user)
         // ...
       } else {

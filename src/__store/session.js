@@ -1,13 +1,17 @@
 import create from 'zustand'
 
+const SESSION_DEFAULT = {
+  uid: false,
+  photoURL: '',
+  email: '',
+  displayName: ''
+}
+
 const useSession = create((set) => ({
   loading: true,
   session: {
-    loading: true,
-    uid: false,
-    photoURL: '',
-    email: '',
-    displayName: ''
+    ...SESSION_DEFAULT,
+    loading: true
   },
   loginLoading: () => set((state) => ({
     ...state,
@@ -26,11 +30,8 @@ const useSession = create((set) => ({
     ...state,
     loading: false,
     session: {
+      ...SESSION_DEFAULT,
       loading: false,
-      uid: false,
-      photoURL: '',
-      email: '',
-      displayName: '',
       isInvalidAuth: true
     }
   }))

@@ -31,7 +31,7 @@ const Navbar = ({ session, handlLogout, locale, handleChangeLang }) => {
     showAlert: true
   })
 
-  console.log('< NAVBAR > ', session)
+  // console.log('< NAVBAR > ', session)
 
   const chooseTemplate = () => {
 
