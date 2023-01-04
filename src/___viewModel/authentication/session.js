@@ -3,7 +3,7 @@
 /** store */
 import useSession from '__store/session'
 /** domain */
-import watchLogin from '__domain/authentication/watchLogin'
+import loginDomain from '__domain/authentication/loginDomain'
 
 export default () => {
   /** store state */
@@ -15,7 +15,7 @@ export default () => {
   const loginUnauthorized = useSession(state => state.loginUnauthorized)
 
   const handleAuthSessionStart = () => {
-    const { watchUserAuthentication } = watchLogin()
+    const { watchUserAuthentication } = loginDomain()
     watchUserAuthentication(authSessionListener)
   }
 
@@ -45,7 +45,7 @@ export default () => {
 
     const opts = {
       google: async () => {
-        const { google } = watchLogin()
+        const { google } = loginDomain()
         const payload = await google()
 
         console.log('< LOGIN WITH GOOGLE > ', payload)
@@ -62,7 +62,7 @@ export default () => {
   }
 
   const handlLogout = () => {
-    const { logout } = watchLogin()
+    const { logout } = loginDomain()
     logout()
   }
 

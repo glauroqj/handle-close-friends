@@ -3,7 +3,7 @@
 /**provider */
 import { getAuth, signOut, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 /** handle */
-import { addUser } from '__domain/authentication/_handleUserAccount'
+import { addUser } from '__domain/authentication/_userAccount'
 
 export default () => {
 
