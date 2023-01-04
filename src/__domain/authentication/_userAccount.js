@@ -33,7 +33,7 @@ const addUser = ({ user }) => new Promise(async resolve => {
       resolve()
     }
   } catch (e) {
-    console.error("< ADD USER : ERROR >", e);
+    console.error("\x1b[31m < ADD USER : ERROR >", e);
     resolve()
   }
 })
