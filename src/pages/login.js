@@ -40,7 +40,7 @@ const Login = () => {
     session,
     /** handlers */
     handleLogin,
-    // handlLogout
+    handlLogout
   } = authViewModel()
 
   // const {
