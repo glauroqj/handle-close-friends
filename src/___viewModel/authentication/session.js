@@ -16,10 +16,10 @@ export default () => {
 
   const handleAuthSessionStart = () => {
     const { watchUserAuthentication } = loginDomain()
-    watchUserAuthentication(authSessionListener)
+    watchUserAuthentication(_authSessionListener)
   }
 
-  const authSessionListener = (payload) => {
+  const _authSessionListener = (payload) => {
     const { uid } = payload
     /** new way */
     if (uid) {
