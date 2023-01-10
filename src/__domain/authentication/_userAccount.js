@@ -23,7 +23,9 @@ const addUser = ({ user }) => new Promise(async resolve => {
           image: photoURL,
           phoneNumber,
           createAccountDate: new Date(),
-          uid
+          uid,
+          isMentor: false,
+          isTutor: false
         },
         {
           merge: true
